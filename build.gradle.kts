@@ -26,6 +26,7 @@ repositories {
 dependencies {
     compileOnly(gradleApi())
     implementation(kotlin("stdlib-jdk8", "1.2.50"))
+    implementation("org.eclipse.jgit:org.eclipse.jgit:5.0.1.201806211838-r")
 
     testImplementation("junit:junit:4.12")
     testImplementation("org.assertj:assertj-core:3.10.0")
