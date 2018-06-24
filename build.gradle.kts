@@ -14,10 +14,10 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.2.50"
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish") version "0.9.10"
+    id("io.toolebox.git-versioner") version "0.0.1"
 }
 
 group = "io.toolebox"
-version = "0.0.1"
 
 repositories {
     mavenCentral()
