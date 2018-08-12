@@ -13,4 +13,7 @@ versioner {
         minor = "minor"
         patch = "patch"
     }
+    tag {
+        prefix = "x"
+    }
 }

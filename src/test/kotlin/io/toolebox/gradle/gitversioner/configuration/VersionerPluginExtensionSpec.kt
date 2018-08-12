@@ -83,6 +83,20 @@ class VersionerPluginExtensionTest : FreeSpec() {
                     assertThat(extension.match.patch).isEqualTo("\\[pat\\]")
                 }
             }
+            "tags" - {
+                "prefix as v when not otherwise specified" {
+                    val extension = VersionerPluginExtension()
+
+                    assertThat(extension.tag.prefix).isEqualTo("v")
+                }
+                "prefix as specified" {
+                    val extension = VersionerPluginExtension()
+
+                    extension.tag(Action { it.prefix = "x" })
+
+                    assertThat(extension.tag.prefix).isEqualTo("x")
+                }
+            }
         }
     }
 }

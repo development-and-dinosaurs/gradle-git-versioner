@@ -16,6 +16,10 @@ open class VersionerPluginExtension {
         it.patch = "\\[patch\\]"
     })
 
+    var tag = Tag(Action {
+        it.prefix = "v"
+    })
+
     fun startFrom(action: Action<StartFrom>) {
         startFrom = StartFrom(action)
     }
@@ -24,4 +28,7 @@ open class VersionerPluginExtension {
         match = Match(action)
     }
 
+    fun tag(action: Action<Tag>) {
+        tag = Tag(action)
+    }
 }
