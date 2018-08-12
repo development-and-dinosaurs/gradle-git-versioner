@@ -1,6 +1,7 @@
-package io.toolebox.gradle.gitversioner
+package io.toolebox.gradle.gitversioner.version
 
 import io.kotlintest.specs.FreeSpec
+import io.toolebox.gradle.gitversioner.withContents
 import org.assertj.core.api.Assertions.assertThat
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder

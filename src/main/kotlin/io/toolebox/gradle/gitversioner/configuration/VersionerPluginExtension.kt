@@ -1,4 +1,4 @@
-package io.toolebox.gradle.gitversioner
+package io.toolebox.gradle.gitversioner.configuration
 
 import org.gradle.api.Action
 

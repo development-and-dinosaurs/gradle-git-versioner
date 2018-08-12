@@ -1,4 +1,4 @@
-package io.toolebox.gradle.gitversioner
+package io.toolebox.gradle.gitversioner.configuration
 
 import io.kotlintest.specs.FreeSpec
 import org.assertj.core.api.Assertions.assertThat
