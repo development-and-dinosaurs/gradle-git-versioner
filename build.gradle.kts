@@ -1,20 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import kotlin.script.experimental.api.ScriptCompileConfigurationProperties.dependencies
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath(kotlin("gradle-plugin", "1.2.50"))
-    }
-}
-
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.2.50"
     id("java-gradle-plugin")
     id("com.gradle.plugin-publish") version "0.9.10"
-    id("io.toolebox.git-versioner") version "0.0.1"
+    id("io.toolebox.git-versioner") version "1.0.0"
 }
 
 group = "io.toolebox"

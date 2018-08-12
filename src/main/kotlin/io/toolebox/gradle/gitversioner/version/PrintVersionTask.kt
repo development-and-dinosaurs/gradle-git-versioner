@@ -1,5 +1,7 @@
-package io.toolebox.gradle.gitversioner
+package io.toolebox.gradle.gitversioner.version
 
+import io.toolebox.gradle.gitversioner.configuration.Match
+import io.toolebox.gradle.gitversioner.configuration.StartFrom
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction

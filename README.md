@@ -60,5 +60,24 @@ This is really not the best idea for large or established projects, as you're go
 
 If you still want to do it, just go for a `git rebase -i <yourFirstCommit>`, mark any of the commits where you've updated the version to be reworded, then one-by-one update the commit messages to include either [major], [minor], or [patch]. If you've done it right, the version produced by Git Versioner will be the same as your current version. Pretty neat right? 
 
+## Can I tag things in git so I know what version I'm on?
+Yes! So originally we would have recommended you do it yourself by running something like
+`./gradlew -q printVersion || xargs git tag && git push --tags`, which if the syntax is correct I think will probably
+create a local tag of the current version, then push it up.
+
+If that sounds like a lot of work to add to all of your repositories, then you will like what we've come up with.
+Git tagging functionality is now included within Git Versioner itself, and you can use it by simply running the
+`tagVersion` task. This will create a local tag called `v<version> by default, but you can customise the version
+prefix like so:
+```
+version {
+  tag {
+    prefix = 'V'
+  }
+}
+```
+This changes the tag prefix to use an uppercase 'V<version>' instead of the standard lowercase 'v<version>', but you
+can be as creative as you like with this.
+
 ## This is so cool, how do I contribute? 
 Check out the [contribution guide](CONTRIBUTING.md)

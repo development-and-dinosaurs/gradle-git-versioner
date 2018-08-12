@@ -1,4 +1,4 @@
-package io.toolebox.gradle.gitversioner
+package io.toolebox.gradle.gitversioner.configuration
 
 /**
  * An exception that is thrown when there is an issue with the configuration for the versioner task.
