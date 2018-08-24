@@ -1,24 +1,17 @@
 package io.toolebox.gradle.gitversioner.configuration
 
+import io.toolebox.gradle.gitversioner.git.Git
 import org.gradle.api.Action
 
 open class VersionerPluginExtension {
 
-    var startFrom = StartFrom(Action { it ->
-        it.major = 0
-        it.minor = 0
-        it.patch = 0
-    })
+    var startFrom = StartFrom(Action { })
 
-    var match = Match(Action {
-        it.major = "\\[major\\]"
-        it.minor = "\\[minor\\]"
-        it.patch = "\\[patch\\]"
-    })
+    var match = Match(Action { })
 
-    var tag = Tag(Action {
-        it.prefix = "v"
-    })
+    var tag = Tag(Action { })
+
+    var git = Git(Action { })
 
     fun startFrom(action: Action<StartFrom>) {
         startFrom = StartFrom(action)
@@ -30,5 +23,9 @@ open class VersionerPluginExtension {
 
     fun tag(action: Action<Tag>) {
         tag = Tag(action)
+    }
+
+    fun git(action: Action<Git>) {
+        git = Git(action)
     }
 }

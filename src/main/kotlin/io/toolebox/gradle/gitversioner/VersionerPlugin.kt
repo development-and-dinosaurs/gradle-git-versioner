@@ -27,6 +27,7 @@ class VersionerPlugin : Plugin<Project> {
             tagVersionTask.startFrom = extension.startFrom
             tagVersionTask.match = extension.match
             tagVersionTask.tag = extension.tag
+            tagVersionTask.git = extension.git
             val version = versioner.version(extension.startFrom, extension.match)
             project.version = version
         }
