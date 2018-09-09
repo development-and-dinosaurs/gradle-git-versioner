@@ -15,7 +15,7 @@ class Versioner(private val project: Project) {
         var build = 0
 
         val git = Git.open(File("${project.rootDir}/.git"))
-        val all = git.log().all().call()
+        val all = git.log().call()
         all.reversed().forEach {
             when {
                 it.fullMessage.contains(Regex(match.major)) -> {
