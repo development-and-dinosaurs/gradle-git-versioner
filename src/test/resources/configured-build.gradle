@@ -8,6 +8,9 @@ versioner {
         minor = 1
         patch = 1
     }
+    mavenSnapshotQualifier {
+        enabled = true
+    }
     match {
         major = "major"
         minor = "minor"

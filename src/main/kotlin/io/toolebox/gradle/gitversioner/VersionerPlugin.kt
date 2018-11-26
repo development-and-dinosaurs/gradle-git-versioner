@@ -24,11 +24,13 @@ class VersionerPlugin : Plugin<Project> {
         project.afterEvaluate {
             printVersionTask.startFrom = extension.startFrom
             printVersionTask.match = extension.match
+            printVersionTask.mavenSnapshotQualifier = extension.mavenSnapshotQualifier
             tagVersionTask.startFrom = extension.startFrom
             tagVersionTask.match = extension.match
+            tagVersionTask.mavenSnapshotQualifier = extension.mavenSnapshotQualifier
             tagVersionTask.tag = extension.tag
             tagVersionTask.git = extension.git
-            val version = versioner.version(extension.startFrom, extension.match)
+            val version = versioner.version(extension.startFrom, extension.mavenSnapshotQualifier, extension.match)
             project.version = version
         }
     }

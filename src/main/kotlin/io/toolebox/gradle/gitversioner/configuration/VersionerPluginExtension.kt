@@ -7,6 +7,8 @@ open class VersionerPluginExtension {
 
     var startFrom = StartFrom(Action { })
 
+    var mavenSnapshotQualifier = MavenSnapshotQualifier(Action { })
+
     var match = Match(Action { })
 
     var tag = Tag(Action { })
@@ -15,6 +17,10 @@ open class VersionerPluginExtension {
 
     fun startFrom(action: Action<StartFrom>) {
         startFrom = StartFrom(action)
+    }
+
+    fun mavenSnapshotQualifier(action: Action<MavenSnapshotQualifier>) {
+        mavenSnapshotQualifier = MavenSnapshotQualifier(action)
     }
 
     fun match(action: Action<Match>) {

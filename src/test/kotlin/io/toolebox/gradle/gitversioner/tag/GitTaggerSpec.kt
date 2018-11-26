@@ -37,7 +37,7 @@ class GitTaggerSpec : FreeSpec() {
                 }
                 assertThat(output.toString()).isEqualToIgnoringNewLines("v0.0.0.3")
             }
-            "Creates tag with specified prefix when configured" {
+            "Creates tag with specified snapshot prefix when configured" {
                 givenWeHaveLocalAndRemoteRepositories()
                 givenProjectIsUsingCustomConfiguration()
                 givenRepositoryHasRegularCommitsNumbering(3)
@@ -51,7 +51,7 @@ class GitTaggerSpec : FreeSpec() {
                     it.commandLine("git")
                     it.args("tag")
                 }
-                assertThat(output.toString()).isEqualToIgnoringNewLines("x1.1.1.3")
+                assertThat(output.toString()).isEqualToIgnoringNewLines("x1.1-SNAPSHOT")
             }
         }
     }

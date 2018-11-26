@@ -143,6 +143,41 @@ class VersionerPluginTest : FreeSpec() {
 
                 assertThat(result.output).isEqualToIgnoringNewLines("1.1.4")
             }
+            "Appends SNAPSHOT when regular commits are not zero" {
+                givenProjectIsUsingCustomConfiguration()
+                givenProjectContainsGitRepository()
+                givenRepositoryHasMajorCommitsNumbering(1)
+                givenRepositoryHasRegularCommitsNumbering(1)
+
+                val result = runTask()
+
+                assertThat(result.output).isEqualToIgnoringNewLines("2.0-SNAPSHOT")
+            }
+            "Appends SNAPSHOT with many commits" {
+                givenProjectIsUsingCustomConfiguration()
+                givenProjectContainsGitRepository()
+                givenRepositoryHasMajorCommitsNumbering(1)
+                givenRepositoryHasMinorCommitsNumbering(13)
+                givenRepositoryHasPatchCommitsNumbering(10)
+                givenRepositoryHasRegularCommitsNumbering(10)
+
+                val result = runTask()
+
+                assertThat(result.output).isEqualToIgnoringNewLines("2.13-SNAPSHOT")
+            }
+            "Does not append SNAPSHOT with many commits after final major" {
+                givenProjectIsUsingCustomConfiguration()
+                givenProjectContainsGitRepository()
+                givenRepositoryHasMajorCommitsNumbering(1)
+                givenRepositoryHasMinorCommitsNumbering(13)
+                givenRepositoryHasPatchCommitsNumbering(10)
+                givenRepositoryHasRegularCommitsNumbering(10)
+                givenRepositoryHasMajorCommitsNumbering(1)
+
+                val result = runTask()
+
+                assertThat(result.output).isEqualToIgnoringNewLines("3.0.0")
+            }
         }
     }
 
