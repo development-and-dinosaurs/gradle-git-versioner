@@ -1,6 +1,6 @@
 package io.toolebox.gradle.gitversioner.version
 
-import io.toolebox.gradle.gitversioner.configuration.MavenSnapshotQualifier
+import io.toolebox.gradle.gitversioner.configuration.MavenSnapshot
 import io.toolebox.gradle.gitversioner.configuration.Match
 import io.toolebox.gradle.gitversioner.configuration.StartFrom
 import org.eclipse.jgit.api.Git
@@ -9,7 +9,7 @@ import java.io.File
 
 class Versioner(private val project: Project) {
 
-    fun version(startFrom: StartFrom, mavenSnapshotQualifier: MavenSnapshotQualifier, match: Match): String {
+    fun version(startFrom: StartFrom, mavenSnapshot: MavenSnapshot, match: Match): String {
         var major = startFrom.major
         var minor = startFrom.minor
         var patch = startFrom.patch
@@ -38,7 +38,7 @@ class Versioner(private val project: Project) {
             }
         }
 
-        if (mavenSnapshotQualifier.enabled) {
+        if (mavenSnapshot.enabled) {
             return "$major.$minor${if (build == 0) ".$patch" else "-SNAPSHOT"}"
         } else {
             return "$major.$minor.$patch${if (build == 0) "" else ".$build"}"

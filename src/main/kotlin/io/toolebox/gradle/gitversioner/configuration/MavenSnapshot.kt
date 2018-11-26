@@ -2,7 +2,7 @@ package io.toolebox.gradle.gitversioner.configuration
 
 import org.gradle.api.Action
 
-class MavenSnapshotQualifier(action: Action<MavenSnapshotQualifier>) {
+class MavenSnapshot(action: Action<MavenSnapshot>) {
 
     var enabled = false
 

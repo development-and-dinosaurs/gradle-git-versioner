@@ -64,8 +64,8 @@ If you still want to do it, just go for a `git rebase -i <yourFirstCommit>`, mar
 You still can! Simply specify the following configuration:
 ```
 versioner {
-  mavenSnapshotQualifier {
-    enabled = true
+  mavenSnapshot {
+    enabled = true  // defaults to false
   }
 }
 ```
@@ -74,7 +74,7 @@ When you next make a regular commit (not a major/minor/patch), the version will 
 
 It also works with Git tags, but do you really want to tag something in Git with `-SNAPSHOT`? It's recommended that you only use this for development, and not actual releases.
 
-If you want more information about Maven SNAPSHOT, click [Maven - Maven Getting Started: What is a SNAPSHOT version?](https://maven.apache.org/guides/getting-started/index.html#What_is_a_SNAPSHOT_version)
+If you want more information about Maven SNAPSHOT, click [Maven - Maven Getting Started Guide: What is a SNAPSHOT version?](https://maven.apache.org/guides/getting-started/index.html#What_is_a_SNAPSHOT_version)
 
 ## Can I tag things in git so I know what version I'm on?
 Yes! So originally we would have recommended you do it yourself by running something like

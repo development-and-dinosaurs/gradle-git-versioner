@@ -1,6 +1,6 @@
 package io.toolebox.gradle.gitversioner.version
 
-import io.toolebox.gradle.gitversioner.configuration.MavenSnapshotQualifier
+import io.toolebox.gradle.gitversioner.configuration.MavenSnapshot
 import io.toolebox.gradle.gitversioner.configuration.Match
 import io.toolebox.gradle.gitversioner.configuration.StartFrom
 import org.gradle.api.DefaultTask
@@ -13,12 +13,12 @@ open class PrintVersionTask : DefaultTask() {
     @Input
     lateinit var startFrom: StartFrom
     @Input
-    lateinit var mavenSnapshotQualifier: MavenSnapshotQualifier
+    lateinit var mavenSnapshot: MavenSnapshot
     @Input
     lateinit var match: Match
 
     @TaskAction
     fun printVersion() {
-        println(versioner.version(startFrom, mavenSnapshotQualifier, match))
+        println(versioner.version(startFrom, mavenSnapshot, match))
     }
 }
