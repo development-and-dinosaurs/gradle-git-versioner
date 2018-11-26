@@ -60,6 +60,22 @@ This is really not the best idea for large or established projects, as you're go
 
 If you still want to do it, just go for a `git rebase -i <yourFirstCommit>`, mark any of the commits where you've updated the version to be reworded, then one-by-one update the commit messages to include either [major], [minor], or [patch]. If you've done it right, the version produced by Git Versioner will be the same as your current version. Pretty neat right?
 
+### I'm using Maven SNAPSHOT's
+You still can! Simply specify the following configuration:
+```
+versioner {
+  mavenSnapshotQualifier {
+    enabled = true
+  }
+}
+```
+
+When you next make a regular commit (not a major/minor/patch), the version will be appended with `-SNAPSHOT`, rather than the patch or build revision (e.g. `1.2-SNAPSHOT`). Once you commit a major/minor/patch message, it will correctly replace `-SNAPSHOT` with the correct value (e.g. `1.2.3`).
+
+It also works with Git tags, but do you really want to tag something in Git with `-SNAPSHOT`? It's recommended that you only use this for development, and not actual releases.
+
+If you want more information about Maven SNAPSHOT, click [Maven - Maven Getting Started: What is a SNAPSHOT version?](https://maven.apache.org/guides/getting-started/index.html#What_is_a_SNAPSHOT_version)
+
 ## Can I tag things in git so I know what version I'm on?
 Yes! So originally we would have recommended you do it yourself by running something like
 `./gradlew -q printVersion || xargs git tag && git push --tags`, which if the syntax is correct I think will probably
