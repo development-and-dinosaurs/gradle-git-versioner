@@ -1,6 +1,7 @@
 package io.toolebox.gradle.gitversioner.tag
 
 import io.toolebox.gradle.gitversioner.configuration.Match
+import io.toolebox.gradle.gitversioner.configuration.Pattern
 import io.toolebox.gradle.gitversioner.configuration.StartFrom
 import io.toolebox.gradle.gitversioner.configuration.Tag
 import io.toolebox.gradle.gitversioner.git.Git
@@ -22,10 +23,12 @@ open class TagVersionTask : DefaultTask() {
     lateinit var tag: Tag
     @Input
     lateinit var git: Git
+    @Input
+    lateinit var pattern: Pattern
 
     @TaskAction
     fun tagVersion() {
         val version = versioner.version(startFrom, match)
-        tagger.tag(version, tag, git)
+        tagger.tag(version.print(pattern.pattern), tag, git)
     }
 }

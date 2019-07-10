@@ -19,7 +19,7 @@ That's really simple too. Find us on the [Gradle Plugins Portal](https://plugins
 You just need to change the way you're doing commits, but it changes a bit depending on whether you're a new project or a projet with an existing versioning scheme.
 
 ### I'm a new project
-Great, that makes things really easy. All you have to do is make sure to tag your commits as you're making them. You can do this on a commit by commit basis, or you can do it on merge commits. Up to you. The default tagging is to include [major] for a major change. [minor] for a minor change, and [patch] for a patch change. All other changes will be treated as build changes.
+Great, that makes things really easy. All you have to do is make sure to tag your commits as you're making them. You can do this on a commit by commit basis, or you can do it on merge commits. Up to you. The default tagging is to include [major] for a major change. [minor] for a minor change, and [patch] for a patch change. All other changes will be treated as commit changes.
 
 If you don't like [major], [minor], and [patch], you can customise what to look for by using a configuration block.
 
@@ -34,6 +34,55 @@ versioner {
 ```
 
 Or maybe something a bit more sensible. I don't know, I like [major], [minor], [patch].
+
+### I don't really like the versioning pattern you're using 
+Yeah me neither, but the default is going to stay that way to maintain backwards compatibility. 
+
+Fortunately you're able to define your own pattern for the version string. This is the pattern that will apply to the `project.version` variable, and the git tag after the prefix. You define it like this: 
+
+```
+versioner {
+  pattern {
+    pattern = "%M.%m.%p(.%c)"
+  }
+}
+```
+
+That's an example of the default pattern. The pattern matching works off of simple string substitution with a little bit of conditional logic built in based off the commit number. 
+
+The substitutions you can use are as follows: 
+
+| pattern | description                      |
+| ------- | -------------------------------- |
+| %M      | major number                     |
+| %m      | minor number                     |
+| %p      | patch number                     |
+| %c      | commit number                    |
+| %b      | current branch                   |
+| %H      | full hash of the current commit  |
+| %h      | short hash of the current commit |
+| ()      | show when commit number > 0      |
+
+Some example patterns are listed below: 
+
+| version | pattern             | output           |
+| ------- | ------------------- | ---------------- |
+| 1.2.3.4 | %M.%m.%p.%c         | 1.2.3.4          |
+| 1.2.3.0 | %M.%m.%p.%c         | 1.2.3.0          |
+| 1.2.3.4 | %M.%m.%p(.%c)       | 1.2.3.4          |
+| 1.2.3.0 | %M.%m.%p(.%c)       | 1.2.3            |
+| 1.2.3.4 | %M.%m.%p-%c         | 1.2.3-4          |
+| 1.2.3.4 | %M.%m(-SNAPSHOT)    | 1.2-SNAPSHOT     |
+| 1.2.3.0 | %M.%m.%p(-SNAPSHOT) | 1.2.3            |
+| 1.2.3.4 | %M.%m.%p-%H         | 1.2.3-hash123456 |
+| 1.2.3.4 | %M.%m.%p-%h         | 1.2.3-hash123    |
+| 1.2.3.4 | %M.%m.%p-%b         | 1.2.3-master     |
+
+Patterns are calculated using really simple string substitution and regular expressions, so there's nothing fancy like pattern escaping or things like that. 
+
+This does mean that you can't use parentheses in your version String, and if you try to have something like %MaybeThisIsAGoodIdea, it won't go very well.  
+
+Pattern substitution can be made more sophisticated if this presents too much of a problem, but I expect the majority of use cases won't require this. 
 
 ### I'm currently doing versioning a different way
 Ok, well you should stop that right now and do it this way instead. In general you just have to follow the step above, then do a bit extra.

@@ -13,6 +13,8 @@ open class VersionerPluginExtension {
 
     var git = Git(Action { })
 
+    var pattern = Pattern(Action { })
+
     fun startFrom(action: Action<StartFrom>) {
         startFrom = StartFrom(action)
     }
@@ -27,5 +29,9 @@ open class VersionerPluginExtension {
 
     fun git(action: Action<Git>) {
         git = Git(action)
+    }
+
+    fun pattern(action: Action<Pattern>) {
+        pattern = Pattern(action)
     }
 }
