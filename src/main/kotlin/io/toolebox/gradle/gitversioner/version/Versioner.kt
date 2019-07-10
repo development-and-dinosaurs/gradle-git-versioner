@@ -15,10 +15,10 @@ class Versioner(private val project: Project) {
         var commit = 0
 
         val git = Git.open(File("${project.rootDir}/.git"))
-        val reader = git.repository.newObjectReader()
 
         val branch = git.repository.branch
-        val hash = reader.abbreviate(git.repository.findRef("HEAD").objectId).name()
+        val hash = git.repository.findRef("HEAD").objectId.name
+
         val all = git.log().call()
         all.reversed().forEach {
             when {

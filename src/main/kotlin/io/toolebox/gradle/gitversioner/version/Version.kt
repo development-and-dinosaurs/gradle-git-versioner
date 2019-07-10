@@ -17,7 +17,8 @@ data class Version(
             .replace("%p", patch.toString())
             .replace("%c", commit.toString())
             .replace("%b", branch)
-            .replace("%h", hash)
+            .replace("%H", hash)
+            .replace("%h", hash.substring(0, 7))
         return if (commit != 0)
             removeParentheses(filledVersion)
         else

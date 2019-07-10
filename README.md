@@ -52,29 +52,31 @@ That's an example of the default pattern. The pattern matching works off of simp
 
 The substitutions you can use are as follows: 
 
-| pattern | description                         |
-| ------- | ----------------------------------- |
-| %M      | major number                        |
-| %m      | minor number                        |
-| %p      | patch number                        |
-| %c      | commit number                       |
-| %b      | current branch                      |
-| %h      | short hash of the current commit    |
-| ()      | only appears when commit number > 0 |
+| pattern | description                      |
+| ------- | -------------------------------- |
+| %M      | major number                     |
+| %m      | minor number                     |
+| %p      | patch number                     |
+| %c      | commit number                    |
+| %b      | current branch                   |
+| %H      | full hash of the current commit  |
+| %h      | short hash of the current commit |
+| ()      | show when commit number > 0      |
 
 Some example patterns are listed below: 
 
-| version | pattern             | output         |
-| ------- | ------------------- | -------------- |
-| 1.2.3.4 | %M.%m.%p.%c         | 1.2.3.4        |
-| 1.2.3.0 | %M.%m.%p.%c         | 1.2.3.0        |
-| 1.2.3.4 | %M.%m.%p(.%c)       | 1.2.3.4        |
-| 1.2.3.0 | %M.%m.%p(.%c)       | 1.2.3          |
-| 1.2.3.4 | %M.%m.%p-%c         | 1.2.3-4        |
-| 1.2.3.4 | %M.%m.%p(-SNAPSHOT) | 1.2.3-SNAPSHOT |
-| 1.2.3.0 | %M.%m.%p(-SNAPSHOT) | 1.2.3          |
-| 1.2.3.4 | %M.%m.%p-%h         | 1.2.3-hash123  |
-| 1.2.3.4 | %M.%m.%p-%b         | 1.2.3-master   |
+| version | pattern             | output           |
+| ------- | ------------------- | ---------------- |
+| 1.2.3.4 | %M.%m.%p.%c         | 1.2.3.4          |
+| 1.2.3.0 | %M.%m.%p.%c         | 1.2.3.0          |
+| 1.2.3.4 | %M.%m.%p(.%c)       | 1.2.3.4          |
+| 1.2.3.0 | %M.%m.%p(.%c)       | 1.2.3            |
+| 1.2.3.4 | %M.%m.%p-%c         | 1.2.3-4          |
+| 1.2.3.4 | %M.%m(-SNAPSHOT)    | 1.2-SNAPSHOT     |
+| 1.2.3.0 | %M.%m.%p(-SNAPSHOT) | 1.2.3            |
+| 1.2.3.4 | %M.%m.%p-%H         | 1.2.3-hash123456 |
+| 1.2.3.4 | %M.%m.%p-%h         | 1.2.3-hash123    |
+| 1.2.3.4 | %M.%m.%p-%b         | 1.2.3-master     |
 
 
 ### I'm currently doing versioning a different way
