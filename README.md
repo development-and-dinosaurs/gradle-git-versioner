@@ -78,6 +78,11 @@ Some example patterns are listed below:
 | 1.2.3.4 | %M.%m.%p-%h         | 1.2.3-hash123    |
 | 1.2.3.4 | %M.%m.%p-%b         | 1.2.3-master     |
 
+Patterns are calculated using really simple string substitution and regular expressions, so there's nothing fancy like pattern escaping or things like that. 
+
+This does mean that you can't use parentheses in your version String, and if you try to have something like %MaybeThisIsAGoodIdea, it won't go very well.  
+
+Pattern substitution can be made more sophisticated if this presents too much of a problem, but I expect the majority of use cases won't require this. 
 
 ### I'm currently doing versioning a different way
 Ok, well you should stop that right now and do it this way instead. In general you just have to follow the step above, then do a bit extra.
