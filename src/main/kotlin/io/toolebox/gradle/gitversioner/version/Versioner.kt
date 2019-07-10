@@ -8,13 +8,17 @@ import java.io.File
 
 class Versioner(private val project: Project) {
 
-    fun version(startFrom: StartFrom, match: Match): String {
+    fun version(startFrom: StartFrom, match: Match): Version {
         var major = startFrom.major
         var minor = startFrom.minor
         var patch = startFrom.patch
         var build = 0
 
         val git = Git.open(File("${project.rootDir}/.git"))
+        val reader = git.repository.newObjectReader()
+
+        val branch = git.repository.branch
+        val hash = reader.abbreviate(git.repository.findRef("HEAD").objectId).name()
         val all = git.log().call()
         all.reversed().forEach {
             when {
@@ -36,7 +40,8 @@ class Versioner(private val project: Project) {
                 else -> build++
             }
         }
-        return "$major.$minor.$patch${if (build == 0) "" else ".$build"}"
+
+        return Version(major, minor, patch, build, branch, hash)
     }
 
 }
