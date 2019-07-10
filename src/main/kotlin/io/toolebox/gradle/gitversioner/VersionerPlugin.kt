@@ -24,12 +24,15 @@ class VersionerPlugin : Plugin<Project> {
         project.afterEvaluate {
             printVersionTask.startFrom = extension.startFrom
             printVersionTask.match = extension.match
+            printVersionTask.pattern = extension.pattern
             tagVersionTask.startFrom = extension.startFrom
             tagVersionTask.match = extension.match
             tagVersionTask.tag = extension.tag
             tagVersionTask.git = extension.git
+            tagVersionTask.pattern = extension.pattern
+
             val version = versioner.version(extension.startFrom, extension.match)
-            project.version = version
+            project.version = version.print(extension.pattern.pattern)
         }
     }
 
