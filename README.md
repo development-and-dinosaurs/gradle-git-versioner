@@ -35,6 +35,48 @@ versioner {
 
 Or maybe something a bit more sensible. I don't know, I like [major], [minor], [patch].
 
+### I don't really like the versioning pattern you're using 
+Yeah me neither, but the default is going to stay that way to maintain backwards compatibility. 
+
+Fortunately you're able to define your own pattern for the version string. This is the pattern that will apply to the `project.version` variable, and the git tag after the prefix. You define it like this: 
+
+```
+versioner {
+  pattern {
+    pattern = "%M.%m.%p(.%c)"
+  }
+}
+```
+
+That's an example of the default pattern. The pattern matching works off of simple string substitution with a little bit of conditional logic built in based off the commit number. 
+
+The substitutions you can use are as follows: 
+
+| pattern | description                         |
+| ------- | ----------------------------------- |
+| %M      | major number                        |
+| %m      | minor number                        |
+| %p      | patch number                        |
+| %c      | commit number                       |
+| %b      | current branch                      |
+| %h      | short hash of the current commit    |
+| ()      | only appears when commit number > 0 |
+
+Some example patterns are listed below: 
+
+| version | pattern             | output         |
+| ------- | ------------------- | -------------- |
+| 1.2.3.4 | %M.%m.%p.%c         | 1.2.3.4        |
+| 1.2.3.0 | %M.%m.%p.%c         | 1.2.3.0        |
+| 1.2.3.4 | %M.%m.%p(.%c)       | 1.2.3.4        |
+| 1.2.3.0 | %M.%m.%p(.%c)       | 1.2.3          |
+| 1.2.3.4 | %M.%m.%p-%c         | 1.2.3-4        |
+| 1.2.3.4 | %M.%m.%p(-SNAPSHOT) | 1.2.3-SNAPSHOT |
+| 1.2.3.0 | %M.%m.%p(-SNAPSHOT) | 1.2.3          |
+| 1.2.3.4 | %M.%m.%p-%h         | 1.2.3-hash123  |
+| 1.2.3.4 | %M.%m.%p-%b         | 1.2.3-master   |
+
+
 ### I'm currently doing versioning a different way
 Ok, well you should stop that right now and do it this way instead. In general you just have to follow the step above, then do a bit extra.
 
