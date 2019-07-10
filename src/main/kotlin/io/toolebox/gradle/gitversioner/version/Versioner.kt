@@ -12,7 +12,7 @@ class Versioner(private val project: Project) {
         var major = startFrom.major
         var minor = startFrom.minor
         var patch = startFrom.patch
-        var build = 0
+        var commit = 0
 
         val git = Git.open(File("${project.rootDir}/.git"))
         val reader = git.repository.newObjectReader()
@@ -26,22 +26,22 @@ class Versioner(private val project: Project) {
                     major++
                     minor = 0
                     patch = 0
-                    build = 0
+                    commit = 0
                 }
                 it.fullMessage.contains(Regex(match.minor)) -> {
                     minor++
                     patch = 0
-                    build = 0
+                    commit = 0
                 }
                 it.fullMessage.contains(Regex(match.patch)) -> {
                     patch++
-                    build = 0
+                    commit = 0
                 }
-                else -> build++
+                else -> commit++
             }
         }
 
-        return Version(major, minor, patch, build, branch, hash)
+        return Version(major, minor, patch, commit, branch, hash)
     }
 
 }

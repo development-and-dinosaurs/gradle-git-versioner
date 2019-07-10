@@ -19,7 +19,7 @@ That's really simple too. Find us on the [Gradle Plugins Portal](https://plugins
 You just need to change the way you're doing commits, but it changes a bit depending on whether you're a new project or a projet with an existing versioning scheme.
 
 ### I'm a new project
-Great, that makes things really easy. All you have to do is make sure to tag your commits as you're making them. You can do this on a commit by commit basis, or you can do it on merge commits. Up to you. The default tagging is to include [major] for a major change. [minor] for a minor change, and [patch] for a patch change. All other changes will be treated as build changes.
+Great, that makes things really easy. All you have to do is make sure to tag your commits as you're making them. You can do this on a commit by commit basis, or you can do it on merge commits. Up to you. The default tagging is to include [major] for a major change. [minor] for a minor change, and [patch] for a patch change. All other changes will be treated as commit changes.
 
 If you don't like [major], [minor], and [patch], you can customise what to look for by using a configuration block.
 
