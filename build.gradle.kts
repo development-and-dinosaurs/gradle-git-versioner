@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import kotlin.script.experimental.api.ScriptCompileConfigurationProperties.dependencies
 
 plugins {
     id("org.jetbrains.kotlin.jvm") version "1.2.50"
@@ -26,6 +25,15 @@ dependencies {
     testImplementation("io.kotlintest:kotlintest-runner-junit5:3.1.7")
 }
 
+val setUpEnvironmentTask = tasks.create("setUpEnvironment") {
+    doFirst {
+        System.setProperty("gradle.publish.key", System.getenv("GRADLE_PUBLISH_KEY"))
+        System.setProperty("gradle.publish.secret", System.getenv("GRADLE_PUBLISH_SECRET"))
+    }
+}
+
+tasks.getByName("publishPlugins").dependsOn(setUpEnvironmentTask)
+
 pluginBundle {
     website = "https://github.com/toolebox-io/gradle-git-versioner"
     vcsUrl = "https://github.com/toolebox-io/gradle-git-versioner"
@@ -34,7 +42,8 @@ pluginBundle {
         "versionerPlugin" {
             id = "io.toolebox.git-versioner"
             displayName = "Git Versioner Plugin"
-            description = "A Gradle plugin to automatically version a project based on commit messages and semantic versioning principles"
+            description =
+                "A Gradle plugin to automatically version a project based on commit messages and semantic versioning principles"
             tags = listOf("git", "version", "semantic-version")
         }
     }
