@@ -19,7 +19,6 @@ jobs:
             - ~/.gradle
           key: v1-dependencies-{{ checksum "build.gradle" }}
       - run: ./gradlew classes
-      - run: ./gradlew test
   build-archive:
     docker:
       - image: circleci/openjdk:8-jdk
@@ -36,11 +35,4 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "build.gradle" }}
             - v1-dependencies-
-      - run: ./gradlew dependencies
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: v1-dependencies-{{ checksum "build.gradle" }}
-      - run: ./gradlew classes
-      - run: ./gradlew test
       - run: ./gradlew publishPlugins
