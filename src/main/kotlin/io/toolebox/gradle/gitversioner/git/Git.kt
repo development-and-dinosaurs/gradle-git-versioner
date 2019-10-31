@@ -11,6 +11,10 @@ class Git(action: Action<Git>) {
         action.execute(this)
     }
 
+    fun authentication(action: Action<Authentication>) {
+        authentication = Authentication(action)
+    }
+
     fun authentication(closure: Closure<Authentication>) {
         closure.resolveStrategy = Closure.DELEGATE_FIRST
         closure.delegate = authentication
