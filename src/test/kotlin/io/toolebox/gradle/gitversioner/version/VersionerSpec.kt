@@ -148,18 +148,18 @@ class VersionerPluginTest : FreeSpec() {
 
     private fun givenProjectIsUsingDefaultConfiguration() {
         projectDir = createTempDir()
-        buildFile = File("$projectDir/build.gradle")
-                .withContents(this::class.java.getResourceAsStream("/default-build.gradle")
-                        .readBytes())
-        project = ProjectBuilder().withProjectDir(projectDir).build()
+        buildFile = File("$projectDir/build.gradle").withContents(
+            this::class.java.getResourceAsStream("/default-build.gradle").readBytes()
+        )
+        project = ProjectBuilder.builder().withProjectDir(projectDir).build()
     }
 
     private fun givenProjectIsUsingCustomConfiguration() {
         projectDir = createTempDir()
-        buildFile = File("$projectDir/build.gradle")
-                .withContents(this::class.java.getResourceAsStream("/configured-build.gradle")
-                        .readBytes())
-        project = ProjectBuilder().withProjectDir(projectDir).build()
+        buildFile = File("$projectDir/build.gradle").withContents(
+            this::class.java.getResourceAsStream("/configured-build.gradle").readBytes()
+        )
+        project = ProjectBuilder.builder().withProjectDir(projectDir).build()
     }
 
     private fun givenProjectContainsGitRepository() {
@@ -196,10 +196,10 @@ class VersionerPluginTest : FreeSpec() {
 
     private fun runTask(): BuildResult {
         return GradleRunner.create()
-                .withProjectDir(projectDir)
-                .withPluginClasspath()
-                .withArguments("-q", "printVersion")
-                .forwardStdOutput(PrintWriter(System.out))
-                .build()
+            .withProjectDir(projectDir)
+            .withPluginClasspath()
+            .withArguments("-q", "printVersion")
+            .forwardStdOutput(PrintWriter(System.out))
+            .build()
     }
 }
