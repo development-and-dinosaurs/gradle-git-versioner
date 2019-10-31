@@ -60,8 +60,8 @@ class GitTaggerSpec : FreeSpec() {
         localProjectDir = createTempDir()
         remoteProjectDir = createTempDir()
 
-        localProject = ProjectBuilder().withProjectDir(localProjectDir).build()
-        remoteProject = ProjectBuilder().withProjectDir(remoteProjectDir).build()
+        localProject = ProjectBuilder.builder().withProjectDir(localProjectDir).build()
+        remoteProject = ProjectBuilder.builder().withProjectDir(remoteProjectDir).build()
 
         createGitRepo(localProject)
         createGitRepo(remoteProject)
@@ -84,18 +84,17 @@ class GitTaggerSpec : FreeSpec() {
     }
 
     private fun givenProjectIsUsingDefaultConfiguration() {
-        buildFile = File("$localProjectDir/build.gradle")
-            .withContents(
-                this::class.java.getResourceAsStream("/default-build.gradle")
-                    .readBytes())
-        localProject = ProjectBuilder().withProjectDir(localProjectDir).build()
+        buildFile = File("$localProjectDir/build.gradle").withContents(
+            this::class.java.getResourceAsStream("/default-build.gradle").readBytes()
+        )
+        localProject = ProjectBuilder.builder().withProjectDir(localProjectDir).build()
     }
 
     private fun givenProjectIsUsingCustomConfiguration() {
-        buildFile = File("$localProjectDir/build.gradle")
-            .withContents(this::class.java.getResourceAsStream("/configured-build.gradle")
-                .readBytes())
-        localProject = ProjectBuilder().withProjectDir(localProjectDir).build()
+        buildFile = File("$localProjectDir/build.gradle").withContents(
+            this::class.java.getResourceAsStream("/configured-build.gradle").readBytes()
+        )
+        localProject = ProjectBuilder.builder().withProjectDir(localProjectDir).build()
     }
 
     private fun givenRepositoryHasRegularCommitsNumbering(number: Int) {
