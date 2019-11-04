@@ -1,102 +1,204 @@
 package io.toolebox.gradle.gitversioner.configuration
 
+import io.kotlintest.shouldBe
 import io.kotlintest.specs.FreeSpec
-import org.assertj.core.api.Assertions.assertThat
+import io.toolebox.gradle.gitversioner.git.Authentication
+import io.toolebox.gradle.gitversioner.git.Git
+import io.toolebox.gradle.gitversioner.git.Https
+import io.toolebox.gradle.gitversioner.git.Ssh
 import org.gradle.api.Action
 
 class VersionerPluginExtensionTest : FreeSpec() {
     init {
-        "Version Plugin Extension" - {
-            "starts from" - {
+        "starts from" - {
+            "default" - {
                 "major 0 when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    assertThat(extension.startFrom.major).isEqualTo(0)
+                    extension.startFrom.major shouldBe 0
                 }
                 "minor 0 when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    assertThat(extension.startFrom.minor).isEqualTo(0)
+                    extension.startFrom.minor shouldBe 0
                 }
                 "patch 0 when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    assertThat(extension.startFrom.patch).isEqualTo(0)
+                    extension.startFrom.patch shouldBe 0
                 }
-                "specified major when provided" {
+            }
+            "configured using" - {
+                "major when specified" {
                     val extension = VersionerPluginExtension()
 
                     extension.startFrom(Action { it.major = 1 })
 
-                    assertThat(extension.startFrom.major).isEqualTo(1)
+                    extension.startFrom.major shouldBe 1
                 }
-                "specified minor when provided" {
+                "minor when specified" {
                     val extension = VersionerPluginExtension()
 
                     extension.startFrom(Action { it.minor = 1 })
 
-                    assertThat(extension.startFrom.minor).isEqualTo(1)
+                    extension.startFrom.minor shouldBe 1
                 }
-                "specified patch when provided" {
+                "patch when specified" {
                     val extension = VersionerPluginExtension()
 
                     extension.startFrom(Action { it.patch = 1 })
 
-                    assertThat(extension.startFrom.patch).isEqualTo(1)
+                    extension.startFrom.patch shouldBe 1
                 }
             }
-            "matches against" - {
+        }
+        "matches" - {
+            "default" - {
                 "major \\[major\\] when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    assertThat(extension.match.major).isEqualTo("\\[major\\]")
+                    extension.match.major shouldBe "\\[major\\]"
                 }
                 "minor \\[minor\\] when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    assertThat(extension.match.minor).isEqualTo("\\[minor\\]")
+                    extension.match.minor shouldBe "\\[minor\\]"
                 }
                 "patch \\[patch\\] when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    assertThat(extension.match.patch).isEqualTo("\\[patch\\]")
+                    extension.match.patch shouldBe "\\[patch\\]"
                 }
-                "specified major when provided" {
+            }
+            "configured using" - {
+                "major when specified" {
                     val extension = VersionerPluginExtension()
 
                     extension.match(Action { it.major = "\\[maj\\]" })
 
-                    assertThat(extension.match.major).isEqualTo("\\[maj\\]")
+                    extension.match.major shouldBe "\\[maj\\]"
                 }
-                "specified minor when provided" {
+                "minor when specified" {
                     val extension = VersionerPluginExtension()
 
                     extension.match(Action { it.minor = "\\[min\\]" })
 
-                    assertThat(extension.match.minor).isEqualTo("\\[min\\]")
+                    extension.match.minor shouldBe "\\[min\\]"
                 }
-                "specified patch when provided" {
+                "patch when specified" {
                     val extension = VersionerPluginExtension()
 
                     extension.match(Action { it.patch = "\\[pat\\]" })
 
-                    assertThat(extension.match.patch).isEqualTo("\\[pat\\]")
+                    extension.match.patch shouldBe "\\[pat\\]"
                 }
             }
-            "tags" - {
+        }
+        "tags" - {
+            "default" - {
                 "prefix as v when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    assertThat(extension.tag.prefix).isEqualTo("v")
+                    extension.tag.prefix shouldBe "v"
                 }
-                "prefix as specified" {
+            }
+            "configured using" - {
+                "prefix when specified" {
                     val extension = VersionerPluginExtension()
 
                     extension.tag(Action { it.prefix = "x" })
 
-                    assertThat(extension.tag.prefix).isEqualTo("x")
+                    extension.tag.prefix shouldBe "x"
+                }
+            }
+        }
+        "git" - {
+            "authentication" - {
+                "https" - {
+                    "default" - {
+                        "null username when not otherwise specified" {
+                            val extension = VersionerPluginExtension()
+
+                            extension.git.authentication.https.username shouldBe null
+                        }
+                        "null password when not otherwise specified" {
+                            val extension = VersionerPluginExtension()
+
+                            extension.git.authentication.https.password shouldBe null
+                        }
+                        "null token when not otherwise specified" {
+                            val extension = VersionerPluginExtension()
+
+                            extension.git.authentication.https.token shouldBe null
+                        }
+                    }
+                    "configured using" - {
+                        "username when specified" {
+                            val extension = VersionerPluginExtension()
+
+                            extension.git(gitConfigHttps(Action { it.username = "username" }))
+
+                            extension.git.authentication.https.username shouldBe "username"
+                        }
+                        "password when specified" {
+                            val extension = VersionerPluginExtension()
+
+                            extension.git(gitConfigHttps(Action { it.password = "password" }))
+
+                            extension.git.authentication.https.password shouldBe "password"
+                        }
+                        "token when specified" {
+                            val extension = VersionerPluginExtension()
+
+                            extension.git(gitConfigHttps(Action { it.token = "token" }))
+
+                            extension.git.authentication.https.token shouldBe "token"
+                        }
+                    }
+                }
+                "ssh" - {
+                    "default" - {
+                        "strictSsl true when not otherwise specified" {
+                            val extension = VersionerPluginExtension()
+
+                            extension.git.authentication.ssh.strictSsl shouldBe true
+                        }
+                    }
+                    "configured using" - {
+                        "strictSsl when specified" {
+                            val extension = VersionerPluginExtension()
+
+                            extension.git(gitConfigSsh(Action { it.strictSsl = false }))
+
+                            extension.git.authentication.ssh.strictSsl shouldBe false
+                        }
+                    }
+                }
+            }
+        }
+        "pattern" - {
+            "default" - {
+                "pattern %M.%m.%p(.%c) when not otherwise specified" {
+                    val extension = VersionerPluginExtension()
+
+                    extension.pattern.pattern shouldBe "%M.%m.%p(.%c)"
+                }
+            }
+            "configured using" - {
+                "pattern when specified" {
+                    val extension = VersionerPluginExtension()
+
+                    extension.pattern(Action { it.pattern = "%M" })
+
+                    extension.pattern.pattern shouldBe "%M"
                 }
             }
         }
     }
+
+    private fun gitConfigHttps(action: Action<Https>): Action<Git> =
+        Action { it.authentication = Authentication(Action { it.https = Https(action) }) }
+
+    private fun gitConfigSsh(action: Action<Ssh>): Action<Git> =
+        Action { it.authentication = Authentication(Action { it.ssh = Ssh(action) }) }
 }
