@@ -1,6 +1,5 @@
 package io.toolebox.gradle.gitversioner.git
 
-import groovy.lang.Closure
 import org.gradle.api.Action
 
 class Https(action: Action<Https>) {

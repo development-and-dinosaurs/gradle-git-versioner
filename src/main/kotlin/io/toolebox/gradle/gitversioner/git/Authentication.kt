@@ -13,10 +13,18 @@ class Authentication(action: Action<Authentication>) {
         action.execute(this)
     }
 
-    fun ssh(closure: Closure<Ssh>) {
+    fun ssh(action: Action<Ssh>) {
+        ssh = Ssh(action)
+    }
+
+    fun ssh(closure: Closure<String>) {
         closure.resolveStrategy = Closure.DELEGATE_FIRST
         closure.delegate = ssh
         closure.call()
+    }
+
+    fun https(action: Action<Https>) {
+        https = Https(action)
     }
 
     fun https(closure: Closure<Https>) {
