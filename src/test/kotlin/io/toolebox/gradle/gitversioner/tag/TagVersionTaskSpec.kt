@@ -83,7 +83,7 @@ class TagVersionTaskSpec : FreeSpec() {
 
     private fun givenProjectIsUsingDefaultConfiguration() {
         buildFile = File("$localProjectDir/build.gradle").withContents(
-            this::class.java.getResourceAsStream("/default-build.gradle").readBytes()
+            this::class.java.getResourceAsStream("/default-build.gradle")
         )
         File("$localProjectDir/settings.gradle").createNewFile()
         localProject = ProjectBuilder.builder().withProjectDir(localProjectDir).build()
@@ -91,7 +91,7 @@ class TagVersionTaskSpec : FreeSpec() {
 
     private fun givenProjectIsUsingCustomConfiguration() {
         buildFile = File("$localProjectDir/build.gradle").withContents(
-            this::class.java.getResourceAsStream("/configured-build.gradle").readBytes()
+            this::class.java.getResourceAsStream("/configured-build.gradle")
         )
         File("$localProjectDir/settings.gradle").createNewFile()
         localProject = ProjectBuilder.builder().withProjectDir(localProjectDir).build()
