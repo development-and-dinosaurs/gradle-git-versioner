@@ -141,13 +141,13 @@ class PrintVersionTaskSpec : FreeSpec() {
 
     private fun givenProjectIsUsingDefaultConfiguration() {
         buildFile = File("$projectDir/build.gradle").withContents(
-            this::class.java.getResourceAsStream("/default-build.gradle").readBytes()
+            this::class.java.getResourceAsStream("/default-build.gradle")
         )
     }
 
     private fun givenProjectIsUsingCustomConfiguration() {
         buildFile = File("$projectDir/build.gradle").withContents(
-            this::class.java.getResourceAsStream("/configured-build.gradle").readBytes()
+            this::class.java.getResourceAsStream("/configured-build.gradle")
         )
     }
 
