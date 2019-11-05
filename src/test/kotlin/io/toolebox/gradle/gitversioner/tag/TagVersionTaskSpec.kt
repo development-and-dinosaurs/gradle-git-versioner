@@ -1,8 +1,9 @@
 package io.toolebox.gradle.gitversioner.tag
 
+import io.kotlintest.Description
+import io.kotlintest.shouldBe
 import io.kotlintest.specs.FreeSpec
 import io.toolebox.gradle.gitversioner.withContents
-import org.assertj.core.api.Assertions.assertThat
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.gradle.testkit.runner.BuildResult
@@ -11,7 +12,7 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.PrintWriter
 
-class GitTaggerSpec : FreeSpec() {
+class TagVersionTaskSpec : FreeSpec() {
 
     private lateinit var localProjectDir: File
     private lateinit var remoteProjectDir: File
@@ -19,41 +20,40 @@ class GitTaggerSpec : FreeSpec() {
     private lateinit var localProject: Project
     private lateinit var remoteProject: Project
 
+    override fun beforeTest(description: Description) {
+        super.beforeTest(description)
+        givenWeHaveLocalAndRemoteRepositories()
+    }
+
     init {
-        "Git Tagger" - {
-            "Creates local tag and pushes to remote repository with default prefix" {
-                givenWeHaveLocalAndRemoteRepositories()
-                givenProjectIsUsingDefaultConfiguration()
-                givenRepositoryHasRegularCommitsNumbering(3)
+        "Creates local tag and pushes to remote repository" {
+            givenProjectIsUsingDefaultConfiguration()
+            givenRepositoryHasRegularCommitsNumbering(3)
 
-                runTask()
+            runTagVersionTask()
 
-                val output = ByteArrayOutputStream()
-                remoteProject.exec {
-                    it.standardOutput = output
-                    it.errorOutput = output
-                    it.commandLine("git")
-                    it.args("tag")
-                }
-                assertThat(output.toString()).isEqualToIgnoringNewLines("v0.0.0.3")
-            }
-            "Creates tag with specified prefix when configured" {
-                givenWeHaveLocalAndRemoteRepositories()
-                givenProjectIsUsingCustomConfiguration()
-                givenRepositoryHasRegularCommitsNumbering(3)
-
-                runTask()
-
-                val output = ByteArrayOutputStream()
-                remoteProject.exec {
-                    it.standardOutput = output
-                    it.errorOutput = output
-                    it.commandLine("git")
-                    it.args("tag")
-                }
-                assertThat(output.toString()).isEqualToIgnoringNewLines("x1.1.1.3")
-            }
+            val output = runGitTagOnRemote()
+            output.toString() shouldBe "v0.0.0.3\n"
         }
+        "Creates tag using configuration when specified" {
+            givenProjectIsUsingCustomConfiguration()
+            givenRepositoryHasRegularCommitsNumbering(5)
+
+            runTagVersionTask()
+
+            val output = runGitTagOnRemote()
+            output.toString() shouldBe "x1.1.1.5\n"
+        }
+    }
+
+    private fun runGitTagOnRemote(): ByteArrayOutputStream {
+        val output = ByteArrayOutputStream()
+        remoteProject.exec {
+            it.standardOutput = output
+            it.errorOutput = output
+            it.commandLine("git", "tag")
+        }
+        return output
     }
 
     private fun givenWeHaveLocalAndRemoteRepositories() {
@@ -71,15 +71,13 @@ class GitTaggerSpec : FreeSpec() {
 
     private fun addRemoteToLocal() {
         localProject.exec {
-            it.commandLine("git")
-            it.args("remote", "add", "origin", remoteProjectDir.path)
+            it.commandLine("git remote add origin ${remoteProjectDir.path}".split(" "))
         }
     }
 
     private fun createGitRepo(project: Project) {
         project.exec {
-            it.commandLine("git")
-            it.args("init")
+            it.commandLine("git", "init")
         }
     }
 
@@ -87,6 +85,7 @@ class GitTaggerSpec : FreeSpec() {
         buildFile = File("$localProjectDir/build.gradle").withContents(
             this::class.java.getResourceAsStream("/default-build.gradle").readBytes()
         )
+        File("$localProjectDir/settings.gradle").createNewFile()
         localProject = ProjectBuilder.builder().withProjectDir(localProjectDir).build()
     }
 
@@ -94,23 +93,23 @@ class GitTaggerSpec : FreeSpec() {
         buildFile = File("$localProjectDir/build.gradle").withContents(
             this::class.java.getResourceAsStream("/configured-build.gradle").readBytes()
         )
+        File("$localProjectDir/settings.gradle").createNewFile()
         localProject = ProjectBuilder.builder().withProjectDir(localProjectDir).build()
     }
 
     private fun givenRepositoryHasRegularCommitsNumbering(number: Int) {
-        createCommits("Hello", number)
+        createCommits(number)
     }
 
-    private fun createCommits(message: String, number: Int) {
+    private fun createCommits(number: Int) {
         for (i in 1..number) {
             localProject.exec {
-                it.commandLine("git")
-                it.args("commit", "-m", "Commit$i\n\n$message", "--allow-empty")
+                it.commandLine("git commit -m Commit$i --allow-empty".split(" "))
             }
         }
     }
 
-    private fun runTask(): BuildResult {
+    private fun runTagVersionTask(): BuildResult {
         return GradleRunner.create()
             .withProjectDir(localProjectDir)
             .withPluginClasspath()
