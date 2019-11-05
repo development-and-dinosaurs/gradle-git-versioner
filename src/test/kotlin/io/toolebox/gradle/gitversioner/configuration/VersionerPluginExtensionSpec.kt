@@ -8,7 +8,7 @@ import io.toolebox.gradle.gitversioner.git.Https
 import io.toolebox.gradle.gitversioner.git.Ssh
 import org.gradle.api.Action
 
-class VersionerPluginExtensionTest : FreeSpec() {
+class VersionerPluginExtensionSpec : FreeSpec() {
     init {
         "starts from" - {
             "default" - {
