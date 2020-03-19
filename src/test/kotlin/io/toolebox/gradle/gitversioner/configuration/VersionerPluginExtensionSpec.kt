@@ -2,10 +2,10 @@ package io.toolebox.gradle.gitversioner.configuration
 
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.FreeSpec
-import io.toolebox.gradle.gitversioner.git.Authentication
-import io.toolebox.gradle.gitversioner.git.Git
-import io.toolebox.gradle.gitversioner.git.Https
-import io.toolebox.gradle.gitversioner.git.Ssh
+import io.toolebox.gradle.gitversioner.configuration.git.Authentication
+import io.toolebox.gradle.gitversioner.configuration.git.Git
+import io.toolebox.gradle.gitversioner.configuration.git.Https
+import io.toolebox.gradle.gitversioner.configuration.git.Ssh
 import org.gradle.api.Action
 
 class VersionerPluginExtensionSpec : FreeSpec() {
@@ -197,8 +197,24 @@ class VersionerPluginExtensionSpec : FreeSpec() {
     }
 
     private fun gitConfigHttps(action: Action<Https>): Action<Git> =
-        Action { it.authentication = Authentication(Action { it.https = Https(action) }) }
+        Action { it.authentication =
+            Authentication(
+                Action {
+                    it.https =
+                        Https(
+                            action
+                        )
+                })
+        }
 
     private fun gitConfigSsh(action: Action<Ssh>): Action<Git> =
-        Action { it.authentication = Authentication(Action { it.ssh = Ssh(action) }) }
+        Action { it.authentication =
+            Authentication(
+                Action {
+                    it.ssh =
+                        Ssh(
+                            action
+                        )
+                })
+        }
 }
