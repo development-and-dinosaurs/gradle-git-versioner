@@ -54,43 +54,43 @@ class VersionerPluginExtensionSpec : FreeSpec() {
         }
         "matches" - {
             "default" - {
-                "major \\[major\\] when not otherwise specified" {
+                "major [major] when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    extension.match.major shouldBe "\\[major\\]"
+                    extension.match.major shouldBe "[major]"
                 }
-                "minor \\[minor\\] when not otherwise specified" {
+                "minor [minor] when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    extension.match.minor shouldBe "\\[minor\\]"
+                    extension.match.minor shouldBe "[minor]"
                 }
-                "patch \\[patch\\] when not otherwise specified" {
+                "patch [patch] when not otherwise specified" {
                     val extension = VersionerPluginExtension()
 
-                    extension.match.patch shouldBe "\\[patch\\]"
+                    extension.match.patch shouldBe "[patch]"
                 }
             }
             "configured using" - {
                 "major when specified" {
                     val extension = VersionerPluginExtension()
 
-                    extension.match(Action { it.major = "\\[maj\\]" })
+                    extension.match(Action { it.major = "[maj]" })
 
-                    extension.match.major shouldBe "\\[maj\\]"
+                    extension.match.major shouldBe "[maj]"
                 }
                 "minor when specified" {
                     val extension = VersionerPluginExtension()
 
-                    extension.match(Action { it.minor = "\\[min\\]" })
+                    extension.match(Action { it.minor = "[min]" })
 
-                    extension.match.minor shouldBe "\\[min\\]"
+                    extension.match.minor shouldBe "[min]"
                 }
                 "patch when specified" {
                     val extension = VersionerPluginExtension()
 
-                    extension.match(Action { it.patch = "\\[pat\\]" })
+                    extension.match(Action { it.patch = "[pat]" })
 
-                    extension.match.patch shouldBe "\\[pat\\]"
+                    extension.match.patch shouldBe "[pat]"
                 }
             }
         }

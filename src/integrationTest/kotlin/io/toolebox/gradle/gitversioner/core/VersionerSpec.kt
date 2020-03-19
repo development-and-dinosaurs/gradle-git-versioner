@@ -33,45 +33,40 @@ class VersionerSpec : StringSpec() {
 
     init {
         "Increments major version for commit messages matching default major regex" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("major", 3)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.major shouldBe 3
         }
         "Increments minor version for commit messages matching default minor regex" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("minor", 2)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.minor shouldBe 2
         }
         "Increments patch version for commit messages matching default patch regex" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("patch", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.patch shouldBe 1
         }
         "Increments commit version for commit messages matching not matching any regex" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("hello", 4)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.commit shouldBe 4
         }
         "Major version increment resets minor, patch, and commit versions" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("hello", 1)
             givenRepositoryHasTypeCommitsNumbering("patch", 1)
             givenRepositoryHasTypeCommitsNumbering("minor", 1)
             givenRepositoryHasTypeCommitsNumbering("major", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.major shouldBe 1
             version.minor shouldBe 0
@@ -79,35 +74,32 @@ class VersionerSpec : StringSpec() {
             version.commit shouldBe 0
         }
         "Minor version increment resets patch and commit versions" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("hello", 1)
             givenRepositoryHasTypeCommitsNumbering("patch", 1)
             givenRepositoryHasTypeCommitsNumbering("minor", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.minor shouldBe 1
             version.patch shouldBe 0
             version.commit shouldBe 0
         }
         "Patch version increment resets commit versions" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("hello", 1)
             givenRepositoryHasTypeCommitsNumbering("patch", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.patch shouldBe 1
             version.commit shouldBe 0
         }
         "Commit version increment resets nothing" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("major", 1)
             givenRepositoryHasTypeCommitsNumbering("minor", 1)
             givenRepositoryHasTypeCommitsNumbering("patch", 1)
             givenRepositoryHasTypeCommitsNumbering("hello", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.major shouldBe 1
             version.minor shouldBe 1
@@ -115,13 +107,12 @@ class VersionerSpec : StringSpec() {
             version.commit shouldBe 1
         }
         "Works even when there's loads of commits" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("major", 100)
             givenRepositoryHasTypeCommitsNumbering("minor", 100)
             givenRepositoryHasTypeCommitsNumbering("patch", 100)
             givenRepositoryHasTypeCommitsNumbering("hello", 100)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.major shouldBe 100
             version.minor shouldBe 100
@@ -129,89 +120,79 @@ class VersionerSpec : StringSpec() {
             version.commit shouldBe 100
         }
         "Increments major version from point specified in configuration" {
-            val versioner = createVersioner(startFromMajor = 1)
             givenRepositoryHasTypeCommitsNumbering("major", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion(startFromMajor = 1)
 
             version.major shouldBe 2
         }
         "Increments minor version from point specified in configuration" {
-            val versioner = createVersioner(startFromMinor = 2)
             givenRepositoryHasTypeCommitsNumbering("minor", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion(startFromMinor = 2)
 
             version.minor shouldBe 3
         }
         "Increments patch version from point specified in configuration" {
-            val versioner = createVersioner(startFromPatch = 3)
             givenRepositoryHasTypeCommitsNumbering("patch", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion(startFromPatch = 3)
 
             version.patch shouldBe 4
         }
         "Increments major version based on major match regex specified in configuration" {
-            val versioner = createVersioner(matchMajor = "trex")
             givenRepositoryHasTypeCommitsNumbering("trex", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion(matchMajor = "trex")
 
             version.major shouldBe 1
         }
         "Increments minor version based on minor match regex specified in configuration" {
-            val versioner = createVersioner(matchMinor = "stego")
             givenRepositoryHasTypeCommitsNumbering("stego", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion(matchMinor = "stego")
 
             version.minor shouldBe 1
         }
         "Increments patch version based on patch match regex specified in configuration" {
-            val versioner = createVersioner(matchPatch = "compy")
             givenRepositoryHasTypeCommitsNumbering("compy", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion(matchPatch = "compy")
 
             version.patch shouldBe 1
         }
         "Version includes current branch" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("hello", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.branch shouldBe "master"
         }
         "Version includes commit hash from HEAD" {
-            val versioner = createVersioner()
             givenRepositoryHasTypeCommitsNumbering("hello", 1)
 
-            val version = versioner.version()
+            val version = calculateVersion()
 
             version.hash shouldBe git.repository.findRef("HEAD").objectId.name
         }
     }
 
-    private fun createVersioner(
+    private fun calculateVersion(
         startFromMajor: Int = 0,
         startFromMinor: Int = 0,
         startFromPatch: Int = 0,
-        matchMajor: String = "\\[major]",
-        matchMinor: String = "\\[minor]",
-        matchPatch: String = "\\[patch]"
-    ) =
-        Versioner(
-            projectDir, VersionerConfig(
-                startFromMajor = startFromMajor,
-                startFromMinor = startFromMinor,
-                startFromPatch = startFromPatch,
-                matchMajor = Regex(matchMajor),
-                matchMinor = Regex(matchMinor),
-                matchPatch = Regex(matchPatch)
-            )
-        )
+        matchMajor: String = "[major]",
+        matchMinor: String = "[minor]",
+        matchPatch: String = "[patch]"
+    ) = Versioner(projectDir).version(object : VersionerConfig {
+        override val startFromMajor = startFromMajor
+        override val startFromMinor = startFromMinor
+        override val startFromPatch = startFromPatch
+        override val matchMajor = matchMajor
+        override val matchMinor = matchMinor
+        override val matchPatch = matchPatch
+        override val pattern = ""
+    })
 
     private fun givenRepositoryHasTypeCommitsNumbering(message: String, number: Int) {
         createCommits("[$message]", number)

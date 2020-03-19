@@ -1,10 +1,11 @@
 package io.toolebox.gradle.gitversioner.core.version
 
-data class VersionerConfig(
-    val startFromMajor: Int = 0,
-    val startFromMinor: Int = 0,
-    val startFromPatch: Int = 0,
-    val matchMajor: Regex = Regex("\\[major]"),
-    val matchMinor: Regex = Regex("\\[minor]"),
-    val matchPatch: Regex = Regex("\\[patch]")
-)
+interface VersionerConfig {
+    val startFromMajor: Int
+    val startFromMinor: Int
+    val startFromPatch: Int
+    val matchMajor: String
+    val matchMinor: String
+    val matchPatch: String
+    val pattern: String
+}
