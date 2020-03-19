@@ -46,6 +46,7 @@ gradlePlugin {
             implementationClass = "io.toolebox.gradle.gitversioner.VersionerPlugin"
         }
     }
+    testSourceSets(sourceSets["functionalTest"])
 }
 
 spotless {
