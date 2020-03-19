@@ -1,6 +1,4 @@
-package io.toolebox.gradle.gitversioner.version
-
-private const val EMPTY_STRING = ""
+package io.toolebox.gradle.gitversioner.core.version
 
 data class Version(
     val major: Int,
@@ -25,11 +23,7 @@ data class Version(
             removeCommitConditionals(filledVersion)
     }
 
-    private fun removeCommitConditionals(version: String) =
-        version.replace(Regex("\\(.*\\)"), EMPTY_STRING)
+    private fun removeCommitConditionals(version: String) = version.replace(Regex("\\(.*\\)"), "")
 
-    private fun removeParentheses(version: String) =
-        version
-            .replace("(", EMPTY_STRING)
-            .replace(")", EMPTY_STRING)
+    private fun removeParentheses(version: String) = version.replace("(", "").replace(")", "")
 }

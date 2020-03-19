@@ -4,12 +4,29 @@ import io.kotlintest.data.forall
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.FreeSpec
 import io.kotlintest.tables.row
+import io.toolebox.gradle.gitversioner.core.version.Version
 
 class VersionSpec : FreeSpec() {
 
     init {
-        val versionWithCommit = Version(1, 2, 3, 4, "mybranch", "myhash123")
-        val versionWithoutCommit = Version(1, 2, 3, 0, "mybranch", "myhash123")
+        val versionWithCommit =
+            Version(
+                1,
+                2,
+                3,
+                4,
+                "mybranch",
+                "myhash123"
+            )
+        val versionWithoutCommit =
+            Version(
+                1,
+                2,
+                3,
+                0,
+                "mybranch",
+                "myhash123"
+            )
 
         "prints version correctly according to pattern" {
             forall(
