@@ -6,9 +6,9 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
-import org.eclipse.jgit.transport.URIish
 import java.io.File
 import org.eclipse.jgit.api.Git as JGit
+import org.eclipse.jgit.transport.URIish
 
 class GitTaggerSpec : StringSpec() {
 
@@ -63,5 +63,4 @@ class GitTaggerSpec : StringSpec() {
             remoteGit.tagList().call()[0].name shouldBe "refs/tags/x1.0.0"
         }
     }
-
 }

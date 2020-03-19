@@ -1,7 +1,7 @@
 package io.toolebox.gradle.gitversioner.core.version
 
-import org.eclipse.jgit.api.Git
 import java.io.File
+import org.eclipse.jgit.api.Git
 
 class Versioner(private val gitFolder: File, private val config: VersionerConfig) {
 
@@ -38,14 +38,6 @@ class Versioner(private val gitFolder: File, private val config: VersionerConfig
             }
         }
 
-        return Version(
-            major,
-            minor,
-            patch,
-            commit,
-            branch,
-            hash
-        )
+        return Version(major, minor, patch, commit, branch, hash)
     }
-
 }

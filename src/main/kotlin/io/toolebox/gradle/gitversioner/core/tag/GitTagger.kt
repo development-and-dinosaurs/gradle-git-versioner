@@ -1,10 +1,10 @@
 package io.toolebox.gradle.gitversioner.core.tag
 
 import com.jcraft.jsch.JSch
-import org.eclipse.jgit.transport.CredentialsProvider
-import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import java.io.File
 import org.eclipse.jgit.api.Git as JGit
+import org.eclipse.jgit.transport.CredentialsProvider
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 
 class GitTagger(private val gitFolder: File, private val config: TaggerConfig) {
 
@@ -19,9 +19,9 @@ class GitTagger(private val gitFolder: File, private val config: TaggerConfig) {
 
     private fun configureHostChecking(config: TaggerConfig) {
         if (config.strictHostChecking) {
-            JSch.setConfig("StrictHostKeyChecking", "yes");
+            JSch.setConfig("StrictHostKeyChecking", "yes")
         } else {
-            JSch.setConfig("StrictHostKeyChecking", "no");
+            JSch.setConfig("StrictHostKeyChecking", "no")
         }
     }
 

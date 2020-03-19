@@ -9,5 +9,4 @@ class Pattern(action: Action<Pattern>) {
     init {
         action.execute(this)
     }
-
 }

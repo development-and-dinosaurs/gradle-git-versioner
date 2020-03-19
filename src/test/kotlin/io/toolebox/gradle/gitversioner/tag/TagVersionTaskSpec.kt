@@ -1,17 +1,6 @@
 package io.toolebox.gradle.gitversioner.tag
 
-import io.kotlintest.Description
-import io.kotlintest.shouldBe
 import io.kotlintest.specs.FreeSpec
-import io.toolebox.gradle.gitversioner.withContents
-import org.gradle.api.Project
-import org.gradle.testfixtures.ProjectBuilder
-import org.gradle.testkit.runner.BuildResult
-import org.gradle.testkit.runner.GradleRunner
-import org.junit.Ignore
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.PrintWriter
 
 class TagVersionTaskSpec : FreeSpec() {
 //

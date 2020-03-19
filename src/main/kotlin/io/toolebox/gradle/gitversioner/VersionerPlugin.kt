@@ -3,13 +3,13 @@ package io.toolebox.gradle.gitversioner
 import io.toolebox.gradle.gitversioner.configuration.VersionerPluginExtension
 import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
-import io.toolebox.gradle.gitversioner.tag.TagVersionTask
-import io.toolebox.gradle.gitversioner.version.PrintVersionTask
 import io.toolebox.gradle.gitversioner.core.version.Versioner
 import io.toolebox.gradle.gitversioner.core.version.VersionerConfig
+import io.toolebox.gradle.gitversioner.tag.TagVersionTask
+import io.toolebox.gradle.gitversioner.version.PrintVersionTask
+import java.io.File
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import java.io.File
 
 class VersionerPlugin : Plugin<Project> {
 

@@ -9,24 +9,8 @@ import io.toolebox.gradle.gitversioner.core.version.Version
 class VersionSpec : FreeSpec() {
 
     init {
-        val versionWithCommit =
-            Version(
-                1,
-                2,
-                3,
-                4,
-                "mybranch",
-                "myhash123"
-            )
-        val versionWithoutCommit =
-            Version(
-                1,
-                2,
-                3,
-                0,
-                "mybranch",
-                "myhash123"
-            )
+        val versionWithCommit = Version(1, 2, 3, 4, "mybranch", "myhash123")
+        val versionWithoutCommit = Version(1, 2, 3, 0, "mybranch", "myhash123")
 
         "prints version correctly according to pattern" {
             forall(
@@ -39,8 +23,7 @@ class VersionSpec : FreeSpec() {
                 row(versionWithoutCommit, "%M.%m.%p(-%b)", "1.2.3"),
                 row(versionWithCommit, "%M.%m.%p(-SNAPSHOT)", "1.2.3-SNAPSHOT"),
                 row(versionWithoutCommit, "%M.%m.%p(-SNAPSHOT)", "1.2.3")
-            )
-            { version, pattern, output ->
+            ) { version, pattern, output ->
                 val print = version.print(pattern)
                 print shouldBe output
             }
