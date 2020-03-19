@@ -3,14 +3,15 @@ package io.toolebox.gradle.gitversioner.core.version
 import java.io.File
 import org.eclipse.jgit.api.Git
 
-class Versioner(private val gitFolder: File, private val config: VersionerConfig) {
+class Versioner(private val gitFolder: File) {
 
-    fun version(): Version {
+    fun version(config: VersionerConfig): Version {
         var major = config.startFromMajor
         var minor = config.startFromMinor
         var patch = config.startFromPatch
         var commit = 0
 
+        println("Starting from $major.$minor.$patch")
         val git = Git.open(gitFolder)
 
         val branch = git.repository.branch
@@ -37,6 +38,7 @@ class Versioner(private val gitFolder: File, private val config: VersionerConfig
                 else -> commit++
             }
         }
+        println("Ended with $major.$minor.$patch.$commit")
 
         return Version(major, minor, patch, commit, branch, hash)
     }

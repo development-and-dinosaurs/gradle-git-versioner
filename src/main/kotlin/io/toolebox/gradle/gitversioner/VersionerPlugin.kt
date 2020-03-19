@@ -1,10 +1,10 @@
 package io.toolebox.gradle.gitversioner
 
+import io.toolebox.gradle.gitversioner.configuration.VersionerExtensionConfig
 import io.toolebox.gradle.gitversioner.configuration.VersionerPluginExtension
 import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
 import io.toolebox.gradle.gitversioner.core.version.Versioner
-import io.toolebox.gradle.gitversioner.core.version.VersionerConfig
 import io.toolebox.gradle.gitversioner.tasks.PrintVersionTask
 import io.toolebox.gradle.gitversioner.tasks.TagVersionTask
 import java.io.File
@@ -15,24 +15,17 @@ class VersionerPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         val extension = project.extensions.create("versioner", VersionerPluginExtension::class.java)
-        val versioner = Versioner(File("${project.rootDir}/.git"), VersionerConfig())
-        val printVersionTask = project.tasks.create("printVersion", PrintVersionTask::class.java) {
-            it.versioner = versioner
-        }
+        val versioner = Versioner(File("${project.rootDir}/.git"))
+        project.tasks.register("printVersion", PrintVersionTask::class.java, versioner, VersionerExtensionConfig(extension))
         val tagVersionTask = project.tasks.register("tagVersion", TagVersionTask::class.java) {
-            it.versioner = versioner
-            it.tagger = createTagger(project, extension)
         }
         project.afterEvaluate {
-            printVersionTask.startFrom = extension.startFrom
-            printVersionTask.match = extension.match
-            printVersionTask.pattern = extension.pattern
             val versionTask = tagVersionTask.get()
             versionTask.startFrom = extension.startFrom
             versionTask.match = extension.match
             versionTask.pattern = extension.pattern
 
-            val version = versioner.version()
+            val version = versioner.version(VersionerExtensionConfig(extension))
             project.version = version.print(extension.pattern.pattern)
         }
     }
