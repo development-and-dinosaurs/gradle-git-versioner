@@ -5,7 +5,8 @@ import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
 import io.toolebox.gradle.gitversioner.tag.TagVersionTask
 import io.toolebox.gradle.gitversioner.version.PrintVersionTask
-import io.toolebox.gradle.gitversioner.version.Versioner
+import io.toolebox.gradle.gitversioner.core.version.Versioner
+import io.toolebox.gradle.gitversioner.core.version.VersionerConfig
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import java.io.File
@@ -14,7 +15,7 @@ class VersionerPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         val extension = project.extensions.create("versioner", VersionerPluginExtension::class.java)
-        val versioner = Versioner(project)
+        val versioner = Versioner(File("${project.rootDir}/.git"), VersionerConfig())
         val printVersionTask = project.tasks.create("printVersion", PrintVersionTask::class.java) {
             it.versioner = versioner
         }
@@ -31,7 +32,7 @@ class VersionerPlugin : Plugin<Project> {
             versionTask.match = extension.match
             versionTask.pattern = extension.pattern
 
-            val version = versioner.version(extension.startFrom, extension.match)
+            val version = versioner.version()
             project.version = version.print(extension.pattern.pattern)
         }
     }
