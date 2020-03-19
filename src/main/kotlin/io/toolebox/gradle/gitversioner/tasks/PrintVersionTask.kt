@@ -1,4 +1,4 @@
-package io.toolebox.gradle.gitversioner.version
+package io.toolebox.gradle.gitversioner.tasks
 
 import io.toolebox.gradle.gitversioner.configuration.Match
 import io.toolebox.gradle.gitversioner.configuration.Pattern
