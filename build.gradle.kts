@@ -50,6 +50,7 @@ gradlePlugin {
 
 spotless {
     kotlin {
+        target("**/*.kt")
         ktlint()
     }
     kotlinGradle {
