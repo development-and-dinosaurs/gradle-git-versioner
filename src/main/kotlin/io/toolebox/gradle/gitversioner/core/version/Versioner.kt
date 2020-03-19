@@ -11,7 +11,6 @@ class Versioner(private val gitFolder: File) {
         var patch = config.startFromPatch
         var commit = 0
 
-        println("Starting from $major.$minor.$patch")
         val git = Git.open(gitFolder)
 
         val branch = git.repository.branch
@@ -38,7 +37,6 @@ class Versioner(private val gitFolder: File) {
                 else -> commit++
             }
         }
-        println("Ended with $major.$minor.$patch.$commit")
 
         return Version(major, minor, patch, commit, branch, hash)
     }
