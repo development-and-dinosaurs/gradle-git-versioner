@@ -20,5 +20,4 @@ class Git(action: Action<Git>) {
         closure.delegate = authentication
         closure.call()
     }
-
 }

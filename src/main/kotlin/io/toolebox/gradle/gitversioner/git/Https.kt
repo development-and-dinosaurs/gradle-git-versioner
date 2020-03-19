@@ -11,5 +11,4 @@ class Https(action: Action<Https>) {
     init {
         action.execute(this)
     }
-
 }

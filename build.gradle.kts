@@ -6,6 +6,7 @@ plugins {
     `java-gradle-plugin`
     id("com.gradle.plugin-publish") version "0.10.0"
     id("io.toolebox.git-versioner") version "1.1.1"
+    id("com.diffplug.gradle.spotless") version "3.27.2"
 }
 
 group = "io.toolebox"
@@ -47,6 +48,16 @@ gradlePlugin {
     }
 }
 
+spotless {
+    kotlin {
+        ktlint()
+    }
+    kotlinGradle {
+        target("*.gradle.kts")
+        ktlint()
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
@@ -67,7 +78,7 @@ fun setUpExtraTests(type: String) {
     configurations["${type}TestImplementation"].extendsFrom(configurations["testImplementation"])
 
     tasks.register("${type}Test", Test::class.java) {
-        description = "Runs the ${type} tests"
+        description = "Runs the $type tests"
         group = "verification"
         testClassesDirs = sourceSets["${type}Test"].output.classesDirs
         classpath = sourceSets["${type}Test"].runtimeClasspath

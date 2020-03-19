@@ -6,8 +6,8 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 import io.toolebox.gradle.gitversioner.core.version.Versioner
 import io.toolebox.gradle.gitversioner.core.version.VersionerConfig
-import org.eclipse.jgit.api.Git
 import java.io.File
+import org.eclipse.jgit.api.Git
 
 class VersionerSpec : StringSpec() {
 
