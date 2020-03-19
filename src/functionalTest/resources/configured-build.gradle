@@ -9,9 +9,9 @@ versioner {
         patch = 1
     }
     match {
-        major = "major"
-        minor = "minor"
-        patch = "patch"
+        major = "trex"
+        minor = "stego"
+        patch = "compy"
     }
     tag {
         prefix = "x"

@@ -4,11 +4,11 @@ import io.kotlintest.TestCase
 import io.kotlintest.TestResult
 import io.kotlintest.matchers.string.shouldContain
 import io.kotlintest.specs.FreeSpec
+import java.io.File
 import org.eclipse.jgit.api.Git
 import org.gradle.testkit.runner.GradleRunner
-import java.io.File
 
-class PrintVersionTaskSpec : FreeSpec(){
+class PrintVersionTaskSpec : FreeSpec() {
     private val projectDirectory = File("build/tmp/functionalTest/PrintVersionTaskSpec")
 
     override fun beforeTest(testCase: TestCase) {
@@ -39,7 +39,7 @@ class PrintVersionTaskSpec : FreeSpec(){
 
                     val result = `when I run the task`("printVersion")
 
-                    result.output shouldContain "2.2.2.4"
+                    result.output shouldContain "2.1.1.4"
                 }
             }
             "using kotlin" - {
@@ -57,7 +57,7 @@ class PrintVersionTaskSpec : FreeSpec(){
 
                     val result = `when I run the task`("printVersion")
 
-                    result.output shouldContain "2.2.2.4"
+                    result.output shouldContain "2.1.1.4"
                 }
             }
         }
@@ -65,9 +65,9 @@ class PrintVersionTaskSpec : FreeSpec(){
 
     private fun `given the project has a git repository with commits`() {
         val repo = Git.init().setDirectory(projectDirectory).call()
-        commit(repo, "major")
-        commit(repo, "minor")
-        commit(repo, "patch")
+        commit(repo, "trex")
+        commit(repo, "stego")
+        commit(repo, "compy")
         commit(repo, "[major]")
         commit(repo, "[minor]")
         commit(repo, "[patch]")
@@ -92,5 +92,4 @@ class PrintVersionTaskSpec : FreeSpec(){
             .withPluginClasspath()
             .forwardOutput()
             .build()
-
 }
