@@ -6,9 +6,9 @@ import io.kotlintest.shouldBe
 import io.kotlintest.specs.StringSpec
 import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
+import org.eclipse.jgit.transport.URIish
 import java.io.File
 import org.eclipse.jgit.api.Git as JGit
-import org.eclipse.jgit.transport.URIish
 
 class GitTaggerSpec : StringSpec() {
 
@@ -46,8 +46,8 @@ class GitTaggerSpec : StringSpec() {
     }
 
     init {
-        "Creates default 'v' tag locally and pushes to remote repository" {
-            val tagger = GitTagger(projectDir, TaggerConfig())
+        "Creates tag locally and pushes to remote repository" {
+            val tagger = createTagger()
 
             tagger.tag("1.0.0")
 
@@ -55,7 +55,7 @@ class GitTaggerSpec : StringSpec() {
             remoteGit.tagList().call()[0].name shouldBe "refs/tags/v1.0.0"
         }
         "Creates overridden tag locally and pushes to remote repository" {
-            val tagger = GitTagger(projectDir, TaggerConfig(prefix = "x"))
+            val tagger = createTagger(prefix = "x")
 
             tagger.tag("1.0.0")
 
@@ -63,4 +63,12 @@ class GitTaggerSpec : StringSpec() {
             remoteGit.tagList().call()[0].name shouldBe "refs/tags/x1.0.0"
         }
     }
+
+    private fun createTagger(prefix: String = "v") = GitTagger(projectDir, object : TaggerConfig {
+        override val username = null
+        override val password = null
+        override val token = null
+        override val strictHostChecking = false
+        override val prefix = prefix
+    })
 }

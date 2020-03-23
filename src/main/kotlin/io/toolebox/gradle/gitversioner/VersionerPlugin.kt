@@ -1,44 +1,32 @@
 package io.toolebox.gradle.gitversioner
 
+import io.toolebox.gradle.gitversioner.configuration.TaggerExtensionConfig
 import io.toolebox.gradle.gitversioner.configuration.VersionerExtensionConfig
 import io.toolebox.gradle.gitversioner.configuration.VersionerPluginExtension
 import io.toolebox.gradle.gitversioner.core.tag.GitTagger
-import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
 import io.toolebox.gradle.gitversioner.core.version.Versioner
 import io.toolebox.gradle.gitversioner.tasks.PrintVersionTask
 import io.toolebox.gradle.gitversioner.tasks.TagVersionTask
-import java.io.File
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import java.io.File
 
 class VersionerPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         val extension = project.extensions.create("versioner", VersionerPluginExtension::class.java)
-        val versioner = Versioner(File("${project.rootDir}/.git"))
-        project.tasks.register("printVersion", PrintVersionTask::class.java, versioner, VersionerExtensionConfig(extension))
-        val tagVersionTask = project.tasks.register("tagVersion", TagVersionTask::class.java) {
-        }
+        val gitFolder = File("${project.rootDir}/.git")
+        val versioner = Versioner(gitFolder)
+        val gitTagger = GitTagger(gitFolder, TaggerExtensionConfig(extension))
+        val printVersionTask = project.tasks.register("printVersion", PrintVersionTask::class.java)
+        val tagVersionTask =
+            project.tasks.register("tagVersion", TagVersionTask::class.java, gitTagger)
         project.afterEvaluate {
-            val versionTask = tagVersionTask.get()
-            versionTask.startFrom = extension.startFrom
-            versionTask.match = extension.match
-            versionTask.pattern = extension.pattern
-
-            val version = versioner.version(VersionerExtensionConfig(extension))
-            project.version = version.print(extension.pattern.pattern)
+            val config = VersionerExtensionConfig(extension)
+            val version = versioner.version(config).print(config.pattern)
+            project.version = version
+            printVersionTask.get().version = version
+            tagVersionTask.get().version = version
         }
     }
-
-    private fun createTagger(project: Project, extension: VersionerPluginExtension) =
-        GitTagger(
-            File("${project.rootDir}/.git"),
-            TaggerConfig(
-                username = extension.git.authentication.https.username,
-                password = extension.git.authentication.https.password,
-                token = extension.git.authentication.https.token,
-                strictHostChecking = extension.git.authentication.ssh.strictSsl,
-                prefix = extension.tag.prefix
-            )
-        )
 }
