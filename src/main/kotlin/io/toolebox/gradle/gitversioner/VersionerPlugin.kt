@@ -7,9 +7,9 @@ import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.version.Versioner
 import io.toolebox.gradle.gitversioner.tasks.PrintVersionTask
 import io.toolebox.gradle.gitversioner.tasks.TagVersionTask
+import java.io.File
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import java.io.File
 
 class VersionerPlugin : Plugin<Project> {
 
