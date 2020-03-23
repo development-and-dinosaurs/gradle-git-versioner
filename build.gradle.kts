@@ -2,7 +2,8 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.3.50"
+    kotlin("jvm") version "1.3.70"
+    `kotlin-dsl`
     `java-gradle-plugin`
     id("com.gradle.plugin-publish") version "0.10.0"
     id("io.toolebox.git-versioner") version "1.1.1"
@@ -20,15 +21,20 @@ repositories {
 
 dependencies {
     val kotlintestVersion = "3.4.2"
+
     compileOnly(gradleApi())
-    implementation(kotlin("stdlib-jdk8", "1.3.50"))
-    implementation(kotlin("reflect", "1.3.50"))
+    implementation(kotlin("stdlib-jdk8", "1.3.70"))
+    implementation(kotlin("reflect", "1.3.70"))
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.0.1.201806211838-r")
 
     testImplementation("junit:junit:4.12")
     testImplementation("io.kotlintest:kotlintest-core:$kotlintestVersion")
     testImplementation("io.kotlintest:kotlintest-assertions:$kotlintestVersion")
     testImplementation("io.kotlintest:kotlintest-runner-junit5:$kotlintestVersion")
+}
+
+kotlinDslPluginOptions {
+    experimentalWarning.set(false)
 }
 
 pluginBundle {
