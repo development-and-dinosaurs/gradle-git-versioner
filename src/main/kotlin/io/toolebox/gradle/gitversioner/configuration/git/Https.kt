@@ -1,4 +1,4 @@
-package io.toolebox.gradle.gitversioner.git
+package io.toolebox.gradle.gitversioner.configuration.git
 
 import org.gradle.api.Action
 
@@ -11,5 +11,4 @@ class Https(action: Action<Https>) {
     init {
         action.execute(this)
     }
-
 }

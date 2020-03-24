@@ -1,4 +1,4 @@
-package io.toolebox.gradle.gitversioner.git
+package io.toolebox.gradle.gitversioner.configuration.git
 
 import groovy.lang.Closure
 import org.gradle.api.Action
@@ -7,7 +7,8 @@ class Authentication(action: Action<Authentication>) {
 
     var ssh = Ssh(Action { })
 
-    var https = Https(Action { })
+    var https =
+        Https(Action { })
 
     init {
         action.execute(this)

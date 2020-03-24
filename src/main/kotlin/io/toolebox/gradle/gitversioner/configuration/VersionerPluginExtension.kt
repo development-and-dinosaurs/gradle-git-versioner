@@ -1,6 +1,6 @@
 package io.toolebox.gradle.gitversioner.configuration
 
-import io.toolebox.gradle.gitversioner.git.Git
+import io.toolebox.gradle.gitversioner.configuration.git.Git
 import org.gradle.api.Action
 
 open class VersionerPluginExtension {
