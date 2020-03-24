@@ -1,18 +1,22 @@
-package io.toolebox.gradle.gitversioner.git
+package io.toolebox.gradle.gitversioner.configuration.git
 
 import groovy.lang.Closure
 import org.gradle.api.Action
 
 class Git(action: Action<Git>) {
 
-    var authentication = Authentication(Action { })
+    var authentication =
+        Authentication(Action { })
 
     init {
         action.execute(this)
     }
 
     fun authentication(action: Action<Authentication>) {
-        authentication = Authentication(action)
+        authentication =
+            Authentication(
+                action
+            )
     }
 
     fun authentication(closure: Closure<Authentication>) {
@@ -20,5 +24,4 @@ class Git(action: Action<Git>) {
         closure.delegate = authentication
         closure.call()
     }
-
 }

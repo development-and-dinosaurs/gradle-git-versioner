@@ -4,6 +4,7 @@ import io.kotlintest.data.forall
 import io.kotlintest.shouldBe
 import io.kotlintest.specs.FreeSpec
 import io.kotlintest.tables.row
+import io.toolebox.gradle.gitversioner.core.version.Version
 
 class VersionSpec : FreeSpec() {
 
@@ -22,8 +23,7 @@ class VersionSpec : FreeSpec() {
                 row(versionWithoutCommit, "%M.%m.%p(-%b)", "1.2.3"),
                 row(versionWithCommit, "%M.%m.%p(-SNAPSHOT)", "1.2.3-SNAPSHOT"),
                 row(versionWithoutCommit, "%M.%m.%p(-SNAPSHOT)", "1.2.3")
-            )
-            { version, pattern, output ->
+            ) { version, pattern, output ->
                 val print = version.print(pattern)
                 print shouldBe output
             }

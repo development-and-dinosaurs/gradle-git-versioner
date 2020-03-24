@@ -9,5 +9,4 @@ class Tag(action: Action<Tag>) {
     init {
         action.execute(this)
     }
-
 }
