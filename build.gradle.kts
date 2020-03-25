@@ -6,7 +6,7 @@ plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
     id("com.gradle.plugin-publish") version "0.10.0"
-    id("io.toolebox.git-versioner") version "1.1.1"
+    id("io.toolebox.git-versioner") version "1.4.0"
     id("com.diffplug.gradle.spotless") version "3.27.2"
 }
 
@@ -63,6 +63,19 @@ spotless {
     kotlinGradle {
         target("*.gradle.kts")
         ktlint()
+    }
+}
+
+versioner {
+    git {
+        authentication {
+            https {
+                token = project.findProperty("token") as String?
+            }
+        }
+    }
+    tag {
+        useCommitMessage = true
     }
 }
 
