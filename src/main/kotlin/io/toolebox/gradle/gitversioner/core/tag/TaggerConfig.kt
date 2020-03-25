@@ -6,4 +6,5 @@ interface TaggerConfig {
     val token: String?
     val strictHostChecking: Boolean
     val prefix: String
+    val useCommitMessage: Boolean
 }
