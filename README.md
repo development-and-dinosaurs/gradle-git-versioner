@@ -128,6 +128,30 @@ versioner {
 This changes the tag prefix to use an uppercase 'V<version>' instead of the standard lowercase 'v<version>', but you
 can be as creative as you like with this.
 
+You can also choose to include a message with this tag. Right now the only options are to forgo a message or to use 
+the last commit message as the tag message. You can turn on this functionality like so:
+
+```
+versioner {
+  tag {
+    useCommitMessage = true
+  }
+}
+```
+
+This is useful if you take up the habit of writing a meaningful commit message for your release commit. 
+For example, which is the better release message for a new piece of functionality? 
+```
+Merge pull request #4 from feature/annotated-tags 
+```
+```
+Release: Add annotated tag messaging
+
+This release includes the ability to specify tag messages using the message of the latest commit. 
+
+[minor]
+```
+
 ## How do I authenticate to push my tags?
 You'll either be using SSH or HTTPS to connect to your remote server, and both methods are supported.
 
