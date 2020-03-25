@@ -8,6 +8,7 @@ import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
 import java.io.File
 import org.eclipse.jgit.api.Git as JGit
+import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.transport.URIish
 
 class GitTaggerSpec : StringSpec() {
@@ -33,7 +34,7 @@ class GitTaggerSpec : StringSpec() {
     }
 
     private fun addCommitToLocalRepository(git: JGit) {
-        git.commit().setAllowEmpty(true).setMessage("Commit").call()
+        git.commit().setAllowEmpty(true).setMessage("Commit\nCommit").call()
     }
 
     private fun addRemoteAsLocalOrigin(git: JGit) {
@@ -51,16 +52,22 @@ class GitTaggerSpec : StringSpec() {
 
             tagger.tag("1.0.0")
 
-            localGit.tagList().call()[0].name shouldBe "refs/tags/v1.0.0"
-            remoteGit.tagList().call()[0].name shouldBe "refs/tags/v1.0.0"
+            lastTag(localGit).tagName shouldBe "v1.0.0"
+            lastTag(remoteGit).tagName shouldBe "v1.0.0"
         }
         "Creates overridden tag locally and pushes to remote repository" {
             val tagger = createTagger(prefix = "x")
 
             tagger.tag("1.0.0")
 
-            localGit.tagList().call()[0].name shouldBe "refs/tags/x1.0.0"
-            remoteGit.tagList().call()[0].name shouldBe "refs/tags/x1.0.0"
+            lastTag(localGit).tagName shouldBe "x1.0.0"
+        }
+        "Creates tag with message as last commit message" {
+            val tagger = createTagger()
+
+            tagger.tag("1.0.0")
+
+            lastTag(localGit).fullMessage shouldBe "Commit\nCommit"
         }
     }
 
@@ -70,5 +77,8 @@ class GitTaggerSpec : StringSpec() {
         override val token = null
         override val strictHostChecking = false
         override val prefix = prefix
+        override val useCommitMessage = true
     })
+
+    private fun lastTag(git: JGit) = RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
 }
