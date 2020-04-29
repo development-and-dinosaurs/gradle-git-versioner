@@ -2,12 +2,12 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.3.70"
-    `kotlin-dsl`
-    `java-gradle-plugin`
-    id("com.gradle.plugin-publish") version "0.10.0"
+    id("com.diffplug.gradle.spotless") version "3.28.1"
+    id("com.gradle.plugin-publish") version "0.11.0"
     id("io.toolebox.git-versioner") version "1.4.0"
-    id("com.diffplug.gradle.spotless") version "3.27.2"
+    `java-gradle-plugin`
+    kotlin("jvm") version "1.3.72"
+    `kotlin-dsl`
 }
 
 group = "io.toolebox"
