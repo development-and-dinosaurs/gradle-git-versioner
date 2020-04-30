@@ -2,7 +2,7 @@ package io.toolebox.gradle.gitversioner.configuration
 
 import io.toolebox.gradle.gitversioner.core.version.VersionerConfig
 
-class VersionerExtensionConfig(extension: VersionerPluginExtension) : VersionerConfig {
+class VersionerExtensionConfig(extension: VersionerExtension) : VersionerConfig {
     override val startFromMajor by lazy { extension.startFrom.major }
     override val startFromMinor by lazy { extension.startFrom.minor }
     override val startFromPatch by lazy { extension.startFrom.patch }
