@@ -1,5 +1,6 @@
 # Gradle Git Versioner
 [![Plugin Portal](https://img.shields.io/maven-metadata/v?label=plugin%20portal&style=for-the-badge&logo=gradle&metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fio%2Ftoolebox%2Fgit-versioner%2Fio.toolebox.git-versioner.gradle.plugin%2Fmaven-metadata.xml)](https://plugins.gradle.org/plugin/io.toolebox.git-versioner)
+[![Build Status](https://img.shields.io/github/workflow/status/toolebox-io/gradle-git-versioner/Build/master?style=for-the-badge&logo=github)](https://github.com/toolebox-io/gradle-git-versioner/actions?query=workflow%3ABuild)
 
 ## What is Git Versioner?
 Git Versioner is the coolest way to automatically increase your version numbers.
