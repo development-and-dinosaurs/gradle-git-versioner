@@ -14,7 +14,7 @@ Following the contribution workflow will ensure that your development won't go u
 
 5. The pull request will be reviewed and comments made and changes requests where required.
 
-5. When ready, the pull request will be merged into master branch and automatically included in the next release.
+6. When ready, the pull request will be merged into master branch and automatically included in the next release.
 
 ## Contribution Guidelines
 
