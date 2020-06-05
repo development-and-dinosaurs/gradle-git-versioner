@@ -55,6 +55,14 @@ gradlePlugin {
     testSourceSets(sourceSets["functionalTest"])
 }
 
+val setupPluginSecrets = tasks.create("setupPluginSecrets") {
+    doLast {
+        System.setProperty("gradle.publish.key", System.getenv("GRADLE_PUBLISH_KEY"))
+        System.setProperty("gradle.publish.secret", System.getenv("GRADLE_PUBLISH_SECRET"))
+    }
+}
+tasks["publishPlugins"].dependsOn(setupPluginSecrets)
+
 spotless {
     kotlin {
         target("**/*.kt")
