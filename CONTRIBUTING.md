@@ -10,19 +10,21 @@ Following the contribution workflow will ensure that your development won't go u
 
 3. Make your changes and submit a pull request from your fork into master branch.
 
-4. The pull request will run through Circle CI and Coveralls to ensure it compiles, tests run, and code quality and test coverage is adequate.
+4. The pull request will run through GitHub Actions to ensure it compiles and tests pass. 
 
-5. The pull request will be merged into master branch and included in the next release.
+5. The pull request will be reviewed and comments made and changes requests where required.
+
+5. When ready, the pull request will be merged into master branch and automatically included in the next release.
 
 ## Contribution Guidelines
 
-Contributions will be merged in a lot quicker if the following guidelines are followed:
+Contributions will be merged in a lot quicker if you follow these guidelines:
 
 1. Include unit tests for all new logic introduced.
 
 2. Integration tests should be included where sensible.
 
-3. Include documentation in the README for new features, and JavaDoc in line with linting rules. 
+3. Include documentation in the README for new features. 
 
 ## Commit Message Guidelines
 
