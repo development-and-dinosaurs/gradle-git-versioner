@@ -1,4 +1,9 @@
 # Gradle Git Versioner
+[![Plugin Portal](https://img.shields.io/maven-metadata/v?label=plugin%20portal&style=for-the-badge&logo=gradle&metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fio%2Ftoolebox%2Fgit-versioner%2Fio.toolebox.git-versioner.gradle.plugin%2Fmaven-metadata.xml)](https://plugins.gradle.org/plugin/io.toolebox.git-versioner)
+[![Release Date](https://img.shields.io/github/release-date/toolebox-io/gradle-git-versioner?logo=gradle&style=for-the-badge)](https://plugins.gradle.org/plugin/io.toolebox.git-versioner)  
+[![Build Status](https://img.shields.io/github/workflow/status/toolebox-io/gradle-git-versioner/Build/master?style=for-the-badge&logo=github)](https://github.com/toolebox-io/gradle-git-versioner/actions?query=workflow%3ABuild)
+[![Sonar Tech Debt](https://img.shields.io/sonar/tech_debt/toolebox-io_gradle-git-versioner?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge)](https://sonarcloud.io/dashboard?id=toolebox-io_gradle-git-versioner)  
+[![MIT License](https://img.shields.io/github/license/toolebox-io/gradle-git-versioner?style=for-the-badge&logo=pagekit)](https://github.com/toolebox-io/gradle-git-versioner/blob/master/LICENSE)  
 
 ## What is Git Versioner?
 Git Versioner is the coolest way to automatically increase your version numbers.
