@@ -17,9 +17,9 @@ versioner {
         prefix = "x"
     }
 }
-versioner.apply()
 
 tasks.create("printVersionEarly") {
+    versioner.apply()
     val version = project.version
     doLast {
         println(version)

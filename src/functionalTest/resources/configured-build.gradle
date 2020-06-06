@@ -17,9 +17,9 @@ versioner {
         prefix = "x"
     }
 }
-versioner.apply()
 
 task("printVersionEarly") {
+    versioner.apply()
     String version = project.version
     doLast {
         println version
