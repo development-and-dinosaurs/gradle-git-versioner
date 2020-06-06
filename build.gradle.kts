@@ -5,6 +5,7 @@ plugins {
     id("com.diffplug.gradle.spotless") version "3.28.1"
     id("com.gradle.plugin-publish") version "0.11.0"
     id("io.toolebox.git-versioner") version "1.4.0"
+    jacoco
     `java-gradle-plugin`
     kotlin("jvm") version "1.3.72"
     `kotlin-dsl`
