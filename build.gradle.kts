@@ -47,7 +47,7 @@ gradlePlugin {
         create("versionerPlugin") {
             id = "io.toolebox.git-versioner"
             displayName = "Git Versioner Plugin"
-            description = "A Gradle plugin to automatically version a project based on commit messages and semantic versioning principles"
+            description = "Automatically version a project based on commit messages and semantic versioning principles"
             implementationClass = "io.toolebox.gradle.gitversioner.VersionerPlugin"
         }
     }
