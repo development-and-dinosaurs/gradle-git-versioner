@@ -1,19 +1,16 @@
 package io.toolebox.gradle.gitversioner.tasks
 
-import io.kotlintest.TestCase
-import io.kotlintest.TestResult
-import io.kotlintest.matchers.string.shouldContain
-import io.kotlintest.specs.FreeSpec
-import io.kotlintest.specs.StringSpec
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.test.TestCase
+import io.kotest.core.test.TestResult
+import io.kotest.matchers.string.shouldContain
 import io.toolebox.gradle.gitversioner.util.Gradle
 import io.toolebox.gradle.gitversioner.util.Project
 import java.io.File
-import org.eclipse.jgit.api.Git
-import org.gradle.testkit.runner.GradleRunner
 
 class PrintVersionTaskSpec : StringSpec() {
 
-    private val directory = File("build/tmp/functionalTest/GitVersionerSpec")
+    private val directory = File("build/tmp/functionalTest/PrintVersionTaskSpec")
     private var project = Project.createProject(directory)
     private var gradle = Gradle(directory)
 
@@ -31,6 +28,7 @@ class PrintVersionTaskSpec : StringSpec() {
 
             result.output shouldContain "1.1.1.1"
         }
+
         "prints version using provided configuration when supplied in Groovy" {
             project.withSettingsFile().withGit().withGroovyGradleFile("configured")
             addCommits(project)
@@ -39,6 +37,7 @@ class PrintVersionTaskSpec : StringSpec() {
 
             result.output shouldContain "2.1.1.4"
         }
+
         "prints version using default configuration when none is supplied in Kotlin" {
             project.withSettingsFile().withGit().withKotlinGradleFile("default")
             addCommits(project)
@@ -47,6 +46,7 @@ class PrintVersionTaskSpec : StringSpec() {
 
             result.output shouldContain "1.1.1.1"
         }
+
         "prints version using provided configuration when supplied in Kotlin" {
             project.withSettingsFile().withGit().withKotlinGradleFile("configured")
             addCommits(project)
@@ -67,5 +67,4 @@ class PrintVersionTaskSpec : StringSpec() {
             .withCommit("[patch]")
             .withCommit("message")
     }
-
 }

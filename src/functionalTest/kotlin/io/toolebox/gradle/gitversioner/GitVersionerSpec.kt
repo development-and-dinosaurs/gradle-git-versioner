@@ -1,9 +1,9 @@
 package io.toolebox.gradle.gitversioner
 
-import io.kotlintest.TestCase
-import io.kotlintest.TestResult
-import io.kotlintest.matchers.string.shouldContain
-import io.kotlintest.specs.StringSpec
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.test.TestCase
+import io.kotest.core.test.TestResult
+import io.kotest.matchers.string.shouldContain
 import io.toolebox.gradle.gitversioner.util.Gradle
 import io.toolebox.gradle.gitversioner.util.Project
 import java.io.File
