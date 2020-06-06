@@ -23,8 +23,8 @@ dependencies {
     val kotlintestVersion = "4.0.6"
 
     compileOnly(gradleApi())
-    implementation(kotlin("stdlib-jdk8", "1.3.70"))
-    implementation(kotlin("reflect", "1.3.70"))
+    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("reflect"))
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.0.1.201806211838-r")
 
     testImplementation("io.kotest:kotest-core:$kotlintestVersion")
