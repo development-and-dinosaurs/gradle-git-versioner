@@ -1,13 +1,13 @@
 package io.toolebox.gradle.gitversioner.core
 
-import io.kotlintest.TestCase
-import io.kotlintest.TestResult
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.StringSpec
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.test.TestCase
+import io.kotest.core.test.TestResult
+import io.kotest.matchers.shouldBe
 import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
 import java.io.File
-import org.eclipse.jgit.api.Git as JGit
+import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.transport.URIish
 
@@ -16,8 +16,8 @@ class GitTaggerSpec : StringSpec() {
     private val projectDir = File("build/tmp/integrationTest/local")
     private val remoteDir = File("build/tmp/integrationTest/remote")
 
-    private lateinit var localGit: JGit
-    private lateinit var remoteGit: JGit
+    private lateinit var localGit: Git
+    private lateinit var remoteGit: Git
 
     override fun beforeTest(testCase: TestCase) {
         localGit = createRepository(projectDir)
@@ -33,17 +33,17 @@ class GitTaggerSpec : StringSpec() {
         super.afterTest(testCase, result)
     }
 
-    private fun addCommitToLocalRepository(git: JGit) {
+    private fun addCommitToLocalRepository(git: Git) {
         git.commit().setAllowEmpty(true).setMessage("Commit\nCommit").call()
     }
 
-    private fun addRemoteAsLocalOrigin(git: JGit) {
+    private fun addRemoteAsLocalOrigin(git: Git) {
         git.remoteAdd().setName("origin").setUri(URIish(remoteDir.absolutePath)).call()
     }
 
-    private fun createRepository(folder: File): JGit {
-        JGit.init().setDirectory(folder).call()
-        return JGit.open(File(folder.absolutePath + "/.git"))
+    private fun createRepository(folder: File): Git {
+        Git.init().setDirectory(folder).call()
+        return Git.open(File(folder.absolutePath + "/.git"))
     }
 
     init {
@@ -62,8 +62,15 @@ class GitTaggerSpec : StringSpec() {
 
             lastTag(localGit).tagName shouldBe "x1.0.0"
         }
-        "Creates tag with message as last commit message" {
+        "Creates tag with no message when not specified" {
             val tagger = createTagger()
+
+            tagger.tag("1.0.0")
+
+            lastTag(localGit).fullMessage shouldBe ""
+        }
+        "Creates tag with message as last commit message" {
+            val tagger = createTagger(useCommitMessage = true)
 
             tagger.tag("1.0.0")
 
@@ -71,14 +78,16 @@ class GitTaggerSpec : StringSpec() {
         }
     }
 
-    private fun createTagger(prefix: String = "v") = GitTagger(projectDir, object : TaggerConfig {
-        override val username = null
-        override val password = null
-        override val token = null
-        override val strictHostChecking = false
-        override val prefix = prefix
-        override val useCommitMessage = true
-    })
+    private fun createTagger(prefix: String = "v", useCommitMessage: Boolean = false) =
+        GitTagger(projectDir, object : TaggerConfig {
+            override val username = null
+            override val password = null
+            override val token = null
+            override val strictHostChecking = false
+            override val prefix = prefix
+            override val useCommitMessage = useCommitMessage
+        })
 
-    private fun lastTag(git: JGit) = RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
+    private fun lastTag(git: Git) =
+        RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
 }

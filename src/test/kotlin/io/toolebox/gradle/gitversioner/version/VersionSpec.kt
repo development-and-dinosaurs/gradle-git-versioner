@@ -1,19 +1,19 @@
 package io.toolebox.gradle.gitversioner.version
 
-import io.kotlintest.data.forall
-import io.kotlintest.shouldBe
-import io.kotlintest.specs.FreeSpec
-import io.kotlintest.tables.row
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
+import io.kotest.matchers.shouldBe
 import io.toolebox.gradle.gitversioner.core.version.Version
 
-class VersionSpec : FreeSpec() {
+class VersionSpec : StringSpec() {
 
     init {
         val versionWithCommit = Version(1, 2, 3, 4, "mybranch", "myhash123")
         val versionWithoutCommit = Version(1, 2, 3, 0, "mybranch", "myhash123")
 
         "prints version correctly according to pattern" {
-            forall(
+            forAll(
                 row(versionWithCommit, "%M.%m.%p.%c", "1.2.3.4"),
                 row(versionWithCommit, "%M.%m.%p-%c", "1.2.3-4"),
                 row(versionWithCommit, "%M.%m.%p-%H", "1.2.3-myhash123"),

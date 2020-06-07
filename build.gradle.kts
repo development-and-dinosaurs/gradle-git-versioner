@@ -5,6 +5,9 @@ plugins {
     id("com.diffplug.gradle.spotless") version "3.28.1"
     id("com.gradle.plugin-publish") version "0.11.0"
     id("io.toolebox.git-versioner") version "1.4.0"
+    id("org.sonarqube") version "3.0"
+    id("pl.droidsonroids.jacoco.testkit") version "1.0.7"
+    jacoco
     `java-gradle-plugin`
     kotlin("jvm") version "1.3.72"
     `kotlin-dsl`
@@ -20,17 +23,16 @@ repositories {
 }
 
 dependencies {
-    val kotlintestVersion = "3.4.2"
+    val kotestVersion = "4.0.6"
 
     compileOnly(gradleApi())
-    implementation(kotlin("stdlib-jdk8", "1.3.70"))
-    implementation(kotlin("reflect", "1.3.70"))
+    implementation(kotlin("stdlib-jdk8"))
+    implementation(kotlin("reflect"))
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.0.1.201806211838-r")
 
-    testImplementation("junit:junit:4.12")
-    testImplementation("io.kotlintest:kotlintest-core:$kotlintestVersion")
-    testImplementation("io.kotlintest:kotlintest-assertions:$kotlintestVersion")
-    testImplementation("io.kotlintest:kotlintest-runner-junit5:$kotlintestVersion")
+    testImplementation("io.kotest:kotest-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
 
 kotlinDslPluginOptions {
@@ -48,7 +50,7 @@ gradlePlugin {
         create("versionerPlugin") {
             id = "io.toolebox.git-versioner"
             displayName = "Git Versioner Plugin"
-            description = "A Gradle plugin to automatically version a project based on commit messages and semantic versioning principles"
+            description = "Automatically version a project based on commit messages and semantic versioning principles"
             implementationClass = "io.toolebox.gradle.gitversioner.VersionerPlugin"
         }
     }
@@ -78,7 +80,7 @@ versioner {
     git {
         authentication {
             https {
-                token = project.findProperty("token") as String?
+                token = System.getenv("TOKEN")
             }
         }
     }
@@ -93,6 +95,33 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    finalizedBy("jacocoTestReport")
+}
+
+tasks.jacocoTestReport {
+    executionData(fileTree(projectDir).include("build/jacoco/*.exec"))
+    reports {
+        xml.isEnabled = true
+    }
+}
+
+jacocoTestKit {
+    applyTo("functionalTestRuntimeOnly", tasks.named("functionalTest"))
+}
+
+sonarqube {
+    properties {
+        property("sonar.projectKey", "toolebox-io_gradle-git-versioner")
+        property("sonar.organization", "toolebox-io")
+        property("sonar.host.url", "https://sonarcloud.io")
+        property("sonar.login", System.getenv("SONAR_LOGIN"))
+        property("sonar.sources", "src/main/kotlin")
+        property("sonar.tests", "src/test/kotlin,src/integrationTest/kotlin,src/functionalTest/kotlin")
+        property("sonar.junit.reportPaths", "build/test-results/**/*.xml")
+        property("sonar.jacoco.reportPaths", "build/jacoco/*.exec")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+        property("sonar.cpd.exclusions", "src/test/**/*,src/integrationTest/**/*,src/functionalTest/**/*")
+    }
 }
 
 fun setUpExtraTests(type: String) {

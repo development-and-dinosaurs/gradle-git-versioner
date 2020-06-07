@@ -16,10 +16,13 @@ versioner {
     tag {
         prefix = "x"
     }
+    pattern {
+        pattern = "%M.%m.%p(-%c)"
+    }
 }
-versioner.apply()
 
 task("printVersionEarly") {
+    versioner.apply()
     String version = project.version
     doLast {
         println version
