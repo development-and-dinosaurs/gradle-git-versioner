@@ -23,16 +23,16 @@ repositories {
 }
 
 dependencies {
-    val kotlintestVersion = "4.0.6"
+    val kotestVersion = "4.0.6"
 
     compileOnly(gradleApi())
     implementation(kotlin("stdlib-jdk8"))
     implementation(kotlin("reflect"))
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.0.1.201806211838-r")
 
-    testImplementation("io.kotest:kotest-core:$kotlintestVersion")
-    testImplementation("io.kotest:kotest-assertions-core:$kotlintestVersion")
-    testImplementation("io.kotest:kotest-runner-junit5:$kotlintestVersion")
+    testImplementation("io.kotest:kotest-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
 
 kotlinDslPluginOptions {
