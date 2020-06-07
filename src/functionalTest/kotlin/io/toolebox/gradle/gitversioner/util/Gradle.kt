@@ -11,7 +11,14 @@ class Gradle(private val directory: File) {
             .withProjectDir(directory)
             .withArguments(name, "-q")
             .withPluginClasspath()
+            .withJacoco()
             .forwardOutput()
             .build()
+    }
+
+    fun GradleRunner.withJacoco(): GradleRunner {
+        File("build/testkit/functionalTest/testkit-gradle.properties")
+            .copyTo(File(projectDir, "gradle.properties"))
+        return this
     }
 }

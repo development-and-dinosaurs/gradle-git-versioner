@@ -5,6 +5,7 @@ plugins {
     id("com.diffplug.gradle.spotless") version "3.28.1"
     id("com.gradle.plugin-publish") version "0.11.0"
     id("io.toolebox.git-versioner") version "1.4.0"
+    id("pl.droidsonroids.jacoco.testkit") version "1.0.7"
     jacoco
     `java-gradle-plugin`
     kotlin("jvm") version "1.3.72"
@@ -101,6 +102,10 @@ tasks.jacocoTestReport {
     reports {
         xml.isEnabled = true
     }
+}
+
+jacocoTestKit {
+    applyTo("functionalTestRuntimeOnly", tasks.named("functionalTest"))
 }
 
 fun setUpExtraTests(type: String) {
