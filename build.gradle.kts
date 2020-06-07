@@ -80,7 +80,7 @@ versioner {
     git {
         authentication {
             https {
-                token = project.findProperty("token") as String?
+                token = System.getenv("TOKEN")
             }
         }
     }
