@@ -6,10 +6,10 @@ import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
 import io.toolebox.gradle.gitversioner.util.Gradle
 import io.toolebox.gradle.gitversioner.util.Project
+import java.io.File
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.transport.URIish
-import java.io.File
 
 class TagVersionTaskSpec : StringSpec() {
 
@@ -86,5 +86,4 @@ class TagVersionTaskSpec : StringSpec() {
 
     private fun lastTag(git: Git) =
         RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
-
 }

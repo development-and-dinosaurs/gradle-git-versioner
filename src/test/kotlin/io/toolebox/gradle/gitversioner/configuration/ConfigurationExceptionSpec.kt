@@ -15,5 +15,4 @@ class ConfigurationExceptionSpec : StringSpec() {
             }
         }
     }
-
 }

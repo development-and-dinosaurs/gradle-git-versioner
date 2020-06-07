@@ -6,10 +6,10 @@ import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
 import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
+import java.io.File
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.transport.URIish
-import java.io.File
 
 class GitTaggerSpec : StringSpec() {
 
