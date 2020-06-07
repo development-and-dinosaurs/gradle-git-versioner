@@ -93,6 +93,14 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    finalizedBy("jacocoTestReport")
+}
+
+tasks.jacocoTestReport {
+    executionData(fileTree(projectDir).include("build/jacoco/*.exec"))
+    reports {
+        xml.isEnabled = true
+    }
 }
 
 fun setUpExtraTests(type: String) {
