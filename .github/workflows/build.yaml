@@ -14,9 +14,7 @@ jobs:
         with:
           java-version: 11
       - name: Build
-        run: ./gradlew build
-      - name: Sonar
-        run: ./gradlew sonarqube
+        run: ./gradlew build sonarqube
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
       - name: Publish
