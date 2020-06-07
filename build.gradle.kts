@@ -115,8 +115,11 @@ sonarqube {
         property("sonar.organization", "toolebox-io")
         property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.login", System.getenv("SONAR_LOGIN"))
-        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
+        property("sonar.sources", "src/main/kotlin")
+        property("sonar.tests", "src/test/kotlin,src/integrationTest/kotlin,src/functionalTest/kotlin")
         property("sonar.junit.reportPaths", "build/test-results/**/*.xml")
+        property("sonar.jacoco.reportPaths", "build/jacoco/*.exec")
+        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
         property("sonar.cpd.exclusions", "src/test/**/*,src/integrationTest/**/*,src/functionalTest/**/*")
     }
 }
