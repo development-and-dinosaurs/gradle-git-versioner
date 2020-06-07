@@ -6,10 +6,10 @@ import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
 import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
-import java.io.File
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.transport.URIish
+import java.io.File
 
 class GitTaggerSpec : StringSpec() {
 
@@ -62,8 +62,15 @@ class GitTaggerSpec : StringSpec() {
 
             lastTag(localGit).tagName shouldBe "x1.0.0"
         }
-        "Creates tag with message as last commit message" {
+        "Creates tag with no message when not specified" {
             val tagger = createTagger()
+
+            tagger.tag("1.0.0")
+
+            lastTag(localGit).fullMessage shouldBe ""
+        }
+        "Creates tag with message as last commit message" {
+            val tagger = createTagger(useCommitMessage = true)
 
             tagger.tag("1.0.0")
 
@@ -71,14 +78,16 @@ class GitTaggerSpec : StringSpec() {
         }
     }
 
-    private fun createTagger(prefix: String = "v") = GitTagger(projectDir, object : TaggerConfig {
-        override val username = null
-        override val password = null
-        override val token = null
-        override val strictHostChecking = false
-        override val prefix = prefix
-        override val useCommitMessage = true
-    })
+    private fun createTagger(prefix: String = "v", useCommitMessage: Boolean = false) =
+        GitTagger(projectDir, object : TaggerConfig {
+            override val username = null
+            override val password = null
+            override val token = null
+            override val strictHostChecking = false
+            override val prefix = prefix
+            override val useCommitMessage = useCommitMessage
+        })
 
-    private fun lastTag(git: Git) = RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
+    private fun lastTag(git: Git) =
+        RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
 }
