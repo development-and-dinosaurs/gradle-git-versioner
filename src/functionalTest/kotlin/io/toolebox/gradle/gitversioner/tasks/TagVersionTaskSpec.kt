@@ -61,8 +61,8 @@ class TagVersionTaskSpec : StringSpec() {
 
             gradle.runTask("tagVersion")
 
-            lastTag(localGit).tagName shouldBe "x1.1.1.1"
-            lastTag(remoteGit).tagName shouldBe "x1.1.1.1"
+            lastTag(localGit).tagName shouldBe "x1.1.1-1"
+            lastTag(remoteGit).tagName shouldBe "x1.1.1-1"
         }
 
         "Creates tag locally and pushes to remote repository using default configuration when none is supplied in Kotlin" {
@@ -79,8 +79,8 @@ class TagVersionTaskSpec : StringSpec() {
 
             gradle.runTask("tagVersion")
 
-            lastTag(localGit).tagName shouldBe "x1.1.1.1"
-            lastTag(remoteGit).tagName shouldBe "x1.1.1.1"
+            lastTag(localGit).tagName shouldBe "x1.1.1-1"
+            lastTag(remoteGit).tagName shouldBe "x1.1.1-1"
         }
     }
 

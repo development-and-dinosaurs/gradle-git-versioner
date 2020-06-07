@@ -35,7 +35,7 @@ class PrintVersionTaskSpec : StringSpec() {
 
             val result = gradle.runTask("printVersion")
 
-            result.output shouldContain "2.1.1.4"
+            result.output shouldContain "2.1.1-4"
         }
 
         "prints version using default configuration when none is supplied in Kotlin" {
@@ -53,7 +53,7 @@ class PrintVersionTaskSpec : StringSpec() {
 
             val result = gradle.runTask("printVersion")
 
-            result.output shouldContain "2.1.1.4"
+            result.output shouldContain "2.1.1-4"
         }
     }
 

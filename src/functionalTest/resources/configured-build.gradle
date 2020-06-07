@@ -16,6 +16,9 @@ versioner {
     tag {
         prefix = "x"
     }
+    pattern {
+        pattern = "%M.%m.%p(-%c)"
+    }
 }
 
 task("printVersionEarly") {

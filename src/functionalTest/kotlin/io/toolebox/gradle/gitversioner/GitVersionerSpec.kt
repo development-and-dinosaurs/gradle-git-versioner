@@ -26,7 +26,7 @@ class GitVersionerSpec : StringSpec() {
 
             val result = gradle.runTask("printVersionEarly")
 
-            result.output shouldContain "2.1.1.4"
+            result.output shouldContain "2.1.1-4"
         }
         "Version is available after forcing version resolution in Kotlin" {
             project.withSettingsFile().withGit().withKotlinGradleFile("configured")
@@ -34,7 +34,7 @@ class GitVersionerSpec : StringSpec() {
 
             val result = gradle.runTask("printVersionEarly")
 
-            result.output shouldContain "2.1.1.4"
+            result.output shouldContain "2.1.1-4"
         }
     }
 
