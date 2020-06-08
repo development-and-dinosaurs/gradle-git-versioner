@@ -25,5 +25,5 @@ jobs:
         run: ./gradlew publishPlugins
       - name: Tag version
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.TOKEN }}
         run: ./gradlew tagVersion
