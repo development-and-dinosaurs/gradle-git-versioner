@@ -26,8 +26,7 @@ dependencies {
     compileOnly(gradleApi())
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.0.1.201806211838-r")
 
-    val kotestVersion = "4.0.6"
-    testImplementation("io.kotest:kotest-core:$kotestVersion")
+    val kotestVersion = "4.3.1"
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
