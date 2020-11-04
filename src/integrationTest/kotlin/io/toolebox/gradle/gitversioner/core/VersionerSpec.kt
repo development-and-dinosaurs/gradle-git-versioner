@@ -200,7 +200,7 @@ class VersionerSpec : StringSpec() {
 
     private fun createCommits(message: String, number: Int) {
         for (i in 1..number) {
-            git.commit().setAllowEmpty(true).setMessage(message).call()
+            git.commit().setSign(false).setAllowEmpty(true).setMessage(message).call()
         }
     }
 }

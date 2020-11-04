@@ -37,7 +37,7 @@ class TagVersionTaskSpec : StringSpec() {
     }
 
     private fun addCommit(git: Git) {
-        git.commit().setAllowEmpty(true).setMessage("[major]").call()
+        git.commit().setSign(false).setAllowEmpty(true).setMessage("[major]").call()
     }
 
     override fun afterTest(testCase: TestCase, result: TestResult) {

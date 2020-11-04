@@ -24,7 +24,8 @@ repositories {
 
 dependencies {
     compileOnly(gradleApi())
-    implementation("org.eclipse.jgit:org.eclipse.jgit:5.0.1.201806211838-r")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:5.9.0.202009080501-r")
+    implementation("com.jcraft:jsch:0.1.55")
 
     val kotestVersion = "4.3.1"
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
