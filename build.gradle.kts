@@ -9,7 +9,7 @@ plugins {
     id("pl.droidsonroids.jacoco.testkit") version "1.0.7"
     jacoco
     `java-gradle-plugin`
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.10"
     `kotlin-dsl`
 }
 
@@ -23,13 +23,10 @@ repositories {
 }
 
 dependencies {
-    val kotestVersion = "4.0.6"
-
     compileOnly(gradleApi())
-    implementation(kotlin("stdlib-jdk8"))
-    implementation(kotlin("reflect"))
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.0.1.201806211838-r")
 
+    val kotestVersion = "4.0.6"
     testImplementation("io.kotest:kotest-core:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
