@@ -34,7 +34,7 @@ class GitTaggerSpec : StringSpec() {
     }
 
     private fun addCommitToLocalRepository(git: Git) {
-        git.commit().setAllowEmpty(true).setMessage("Commit\nCommit").call()
+        git.commit().setSign(false).setAllowEmpty(true).setMessage("Commit\nCommit").call()
     }
 
     private fun addRemoteAsLocalOrigin(git: Git) {

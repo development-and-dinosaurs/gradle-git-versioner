@@ -17,7 +17,7 @@ class Project(private val directory: File) {
     }
 
     fun withCommit(message: String): Project {
-        git.commit().setAllowEmpty(true).setMessage(message).call()
+        git.commit().setSign(false).setAllowEmpty(true).setMessage(message).call()
         return this
     }
 

@@ -2,14 +2,14 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.diffplug.gradle.spotless") version "3.28.1"
-    id("com.gradle.plugin-publish") version "0.11.0"
+    id("com.diffplug.spotless") version "5.7.0"
+    id("com.gradle.plugin-publish") version "0.12.0"
     id("io.toolebox.git-versioner") version "1.4.0"
     id("org.sonarqube") version "3.0"
     id("pl.droidsonroids.jacoco.testkit") version "1.0.7"
     jacoco
     `java-gradle-plugin`
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.10"
     `kotlin-dsl`
 }
 
@@ -23,14 +23,11 @@ repositories {
 }
 
 dependencies {
-    val kotestVersion = "4.0.6"
-
     compileOnly(gradleApi())
-    implementation(kotlin("stdlib-jdk8"))
-    implementation(kotlin("reflect"))
-    implementation("org.eclipse.jgit:org.eclipse.jgit:5.0.1.201806211838-r")
+    implementation("org.eclipse.jgit:org.eclipse.jgit:5.9.0.202009080501-r")
+    implementation("com.jcraft:jsch:0.1.55")
 
-    testImplementation("io.kotest:kotest-core:$kotestVersion")
+    val kotestVersion = "4.3.1"
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
