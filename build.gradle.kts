@@ -141,3 +141,8 @@ fun setUpExtraTests(type: String) {
         tasks["check"].dependsOn(this)
     }
 }
+
+tasks.withType<AbstractArchiveTask>() {
+    isPreserveFileTimestamps = false
+    isReproducibleFileOrder = true
+}
