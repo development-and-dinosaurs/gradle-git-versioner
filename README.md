@@ -86,7 +86,7 @@ Yes! You just need to override the match defaults using some configuration. Here
 
 ```
 versioner {
-  startFrom {
+  match {
     major = "+semver: major"
     minor = "+semver: minor"
     patch = "+semver: patch"
