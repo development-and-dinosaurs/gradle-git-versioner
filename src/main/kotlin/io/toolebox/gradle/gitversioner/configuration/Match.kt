@@ -3,7 +3,6 @@ package io.toolebox.gradle.gitversioner.configuration
 import org.gradle.api.Action
 
 class Match(action: Action<Match>) {
-
     var major = "[major]"
     var minor = "[minor]"
     var patch = "[patch]"

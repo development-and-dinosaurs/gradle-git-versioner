@@ -6,11 +6,10 @@ import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
 import io.toolebox.gradle.gitversioner.core.version.Versioner
 import io.toolebox.gradle.gitversioner.core.version.VersionerConfig
-import java.io.File
 import org.eclipse.jgit.api.Git
+import java.io.File
 
 class VersionerSpec : StringSpec() {
-
     private val projectDir = File("build/tmp/integrationTest/local")
 
     private lateinit var git: Git
@@ -20,7 +19,10 @@ class VersionerSpec : StringSpec() {
         super.beforeTest(testCase)
     }
 
-    override fun afterTest(testCase: TestCase, result: TestResult) {
+    override fun afterTest(
+        testCase: TestCase,
+        result: TestResult,
+    ) {
         projectDir.deleteRecursively()
         super.afterTest(testCase, result)
     }
@@ -183,22 +185,30 @@ class VersionerSpec : StringSpec() {
         startFromPatch: Int = 0,
         matchMajor: String = "[major]",
         matchMinor: String = "[minor]",
-        matchPatch: String = "[patch]"
-    ) = Versioner(projectDir).version(object : VersionerConfig {
-        override val startFromMajor = startFromMajor
-        override val startFromMinor = startFromMinor
-        override val startFromPatch = startFromPatch
-        override val matchMajor = matchMajor
-        override val matchMinor = matchMinor
-        override val matchPatch = matchPatch
-        override val pattern = ""
-    })
+        matchPatch: String = "[patch]",
+    ) = Versioner(projectDir).version(
+        object : VersionerConfig {
+            override val startFromMajor = startFromMajor
+            override val startFromMinor = startFromMinor
+            override val startFromPatch = startFromPatch
+            override val matchMajor = matchMajor
+            override val matchMinor = matchMinor
+            override val matchPatch = matchPatch
+            override val pattern = ""
+        },
+    )
 
-    private fun givenRepositoryHasTypeCommitsNumbering(message: String, number: Int) {
+    private fun givenRepositoryHasTypeCommitsNumbering(
+        message: String,
+        number: Int,
+    ) {
         createCommits("[$message]", number)
     }
 
-    private fun createCommits(message: String, number: Int) {
+    private fun createCommits(
+        message: String,
+        number: Int,
+    ) {
         for (i in 1..number) {
             git.commit().setSign(false).setAllowEmpty(true).setMessage(message).call()
         }

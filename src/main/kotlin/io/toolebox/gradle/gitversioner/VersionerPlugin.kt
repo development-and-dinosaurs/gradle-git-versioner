@@ -7,14 +7,13 @@ import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.version.Versioner
 import io.toolebox.gradle.gitversioner.tasks.PrintVersionTask
 import io.toolebox.gradle.gitversioner.tasks.TagVersionTask
-import java.io.File
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.create
 import org.gradle.kotlin.dsl.register
+import java.io.File
 
 class VersionerPlugin : Plugin<Project> {
-
     override fun apply(project: Project) {
         val gitFolder = File("${project.rootDir}/.git")
         val versioner = Versioner(gitFolder)

@@ -1,10 +1,9 @@
 package io.toolebox.gradle.gitversioner.util
 
-import java.io.File
 import org.eclipse.jgit.api.Git
+import java.io.File
 
 class Project(private val directory: File) {
-
     private lateinit var git: Git
 
     companion object {
@@ -33,7 +32,10 @@ class Project(private val directory: File) {
         return withGradleFile("settings.gradle", "settings.gradle")
     }
 
-    private fun withGradleFile(name: String, destination: String): Project {
+    private fun withGradleFile(
+        name: String,
+        destination: String,
+    ): Project {
         File("src/functionalTest/resources/$name").copyTo(File(directory, destination))
         return this
     }

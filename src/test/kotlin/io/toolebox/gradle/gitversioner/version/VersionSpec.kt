@@ -7,7 +7,6 @@ import io.kotest.matchers.shouldBe
 import io.toolebox.gradle.gitversioner.core.version.Version
 
 class VersionSpec : StringSpec() {
-
     init {
         val versionWithCommit = Version(1, 2, 3, 4, "mybranch", "myhash123")
         val versionWithoutCommit = Version(1, 2, 3, 0, "mybranch", "myhash123")
@@ -22,7 +21,7 @@ class VersionSpec : StringSpec() {
                 row(versionWithCommit, "%M.%m.%p(-%c)", "1.2.3-4"),
                 row(versionWithoutCommit, "%M.%m.%p(-%b)", "1.2.3"),
                 row(versionWithCommit, "%M.%m.%p(-SNAPSHOT)", "1.2.3-SNAPSHOT"),
-                row(versionWithoutCommit, "%M.%m.%p(-SNAPSHOT)", "1.2.3")
+                row(versionWithoutCommit, "%M.%m.%p(-SNAPSHOT)", "1.2.3"),
             ) { version, pattern, output ->
                 val print = version.print(pattern)
                 print shouldBe output

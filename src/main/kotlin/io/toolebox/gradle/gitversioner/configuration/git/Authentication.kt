@@ -4,7 +4,6 @@ import groovy.lang.Closure
 import org.gradle.api.Action
 
 class Authentication(action: Action<Authentication>) {
-
     var ssh = Ssh(Action { })
 
     var https =

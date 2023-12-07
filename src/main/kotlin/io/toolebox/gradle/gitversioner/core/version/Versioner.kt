@@ -1,10 +1,9 @@
 package io.toolebox.gradle.gitversioner.core.version
 
-import java.io.File
 import org.eclipse.jgit.api.Git
+import java.io.File
 
 class Versioner(private val gitFolder: File) {
-
     fun version(config: VersionerConfig): Version {
         var major = config.startFromMajor
         var minor = config.startFromMinor

@@ -1,13 +1,12 @@
 package io.toolebox.gradle.gitversioner.core.tag
 
 import com.jcraft.jsch.JSch
-import java.io.File
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.transport.CredentialsProvider
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
+import java.io.File
 
 class GitTagger(private val gitFolder: File, private val config: TaggerConfig) {
-
     fun tag(version: String) {
         configureHostChecking(config)
         val credentialsProvider = createCredentialsProvider(config)
@@ -21,8 +20,7 @@ class GitTagger(private val gitFolder: File, private val config: TaggerConfig) {
         git.push().add(prefixedVersion).setCredentialsProvider(credentialsProvider).call()
     }
 
-    private fun getLastCommitMessage(git: Git) =
-        git.log().setMaxCount(1).call().iterator().next().fullMessage
+    private fun getLastCommitMessage(git: Git) = git.log().setMaxCount(1).call().iterator().next().fullMessage
 
     private fun configureHostChecking(config: TaggerConfig) {
         if (config.strictHostChecking) {

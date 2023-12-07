@@ -4,7 +4,6 @@ import groovy.lang.Closure
 import org.gradle.api.Action
 
 class Git(action: Action<Git>) {
-
     var authentication =
         Authentication(Action { })
 
@@ -15,7 +14,7 @@ class Git(action: Action<Git>) {
     fun authentication(action: Action<Authentication>) {
         authentication =
             Authentication(
-                action
+                action,
             )
     }
 

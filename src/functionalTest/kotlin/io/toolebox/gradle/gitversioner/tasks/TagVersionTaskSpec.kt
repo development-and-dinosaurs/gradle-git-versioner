@@ -6,13 +6,12 @@ import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
 import io.toolebox.gradle.gitversioner.util.Gradle
 import io.toolebox.gradle.gitversioner.util.Project
-import java.io.File
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.transport.URIish
+import java.io.File
 
 class TagVersionTaskSpec : StringSpec() {
-
     private val directory = File("build/tmp/functionalTest/TagVersionTaskSpec/local")
     private val remoteDir = File("build/tmp/functionalTest/TagVersionTaskSpec/remote")
     private var project = Project.createProject(directory)
@@ -40,7 +39,10 @@ class TagVersionTaskSpec : StringSpec() {
         git.commit().setSign(false).setAllowEmpty(true).setMessage("[major]").call()
     }
 
-    override fun afterTest(testCase: TestCase, result: TestResult) {
+    override fun afterTest(
+        testCase: TestCase,
+        result: TestResult,
+    ) {
         directory.deleteRecursively()
         remoteDir.deleteRecursively()
         super.afterTest(testCase, result)
@@ -84,6 +86,5 @@ class TagVersionTaskSpec : StringSpec() {
         }
     }
 
-    private fun lastTag(git: Git) =
-        RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
+    private fun lastTag(git: Git) = RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
 }

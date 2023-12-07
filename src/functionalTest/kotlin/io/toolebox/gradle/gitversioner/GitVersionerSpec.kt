@@ -9,12 +9,14 @@ import io.toolebox.gradle.gitversioner.util.Project
 import java.io.File
 
 class GitVersionerSpec : StringSpec() {
-
     private val directory = File("build/tmp/functionalTest/GitVersionerSpec")
     private var project = Project.createProject(directory)
     private var gradle = Gradle(directory)
 
-    override fun afterTest(testCase: TestCase, result: TestResult) {
+    override fun afterTest(
+        testCase: TestCase,
+        result: TestResult,
+    ) {
         directory.deleteRecursively()
         super.afterTest(testCase, result)
     }

@@ -6,13 +6,12 @@ import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
 import io.toolebox.gradle.gitversioner.core.tag.GitTagger
 import io.toolebox.gradle.gitversioner.core.tag.TaggerConfig
-import java.io.File
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.transport.URIish
+import java.io.File
 
 class GitTaggerSpec : StringSpec() {
-
     private val projectDir = File("build/tmp/integrationTest/local")
     private val remoteDir = File("build/tmp/integrationTest/remote")
 
@@ -27,7 +26,10 @@ class GitTaggerSpec : StringSpec() {
         super.beforeTest(testCase)
     }
 
-    override fun afterTest(testCase: TestCase, result: TestResult) {
+    override fun afterTest(
+        testCase: TestCase,
+        result: TestResult,
+    ) {
         projectDir.deleteRecursively()
         remoteDir.deleteRecursively()
         super.afterTest(testCase, result)
@@ -78,16 +80,20 @@ class GitTaggerSpec : StringSpec() {
         }
     }
 
-    private fun createTagger(prefix: String = "v", useCommitMessage: Boolean = false) =
-        GitTagger(projectDir, object : TaggerConfig {
+    private fun createTagger(
+        prefix: String = "v",
+        useCommitMessage: Boolean = false,
+    ) = GitTagger(
+        projectDir,
+        object : TaggerConfig {
             override val username = null
             override val password = null
             override val token = null
             override val strictHostChecking = false
             override val prefix = prefix
             override val useCommitMessage = useCommitMessage
-        })
+        },
+    )
 
-    private fun lastTag(git: Git) =
-        RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
+    private fun lastTag(git: Git) = RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
 }
