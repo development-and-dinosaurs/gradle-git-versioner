@@ -1,16 +1,13 @@
-import org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.diffplug.spotless") version "5.7.0"
-    id("com.gradle.plugin-publish") version "0.12.0"
-    id("io.toolebox.git-versioner") version "1.4.0"
-    id("org.sonarqube") version "3.0"
-    id("pl.droidsonroids.jacoco.testkit") version "1.0.7"
-    jacoco
-    `java-gradle-plugin`
-    kotlin("jvm") version "1.4.10"
     `kotlin-dsl`
+    kotlin("jvm") version "1.9.20"
+    id("com.diffplug.spotless") version "6.23.3"
+    id("com.gradle.plugin-publish") version "1.2.1"
+    id("io.toolebox.git-versioner") version "1.6.7"
+    id("org.sonarqube") version "3.0"
+    id("pl.droidsonroids.jacoco.testkit") version "1.0.12"
 }
 
 group = "io.toolebox"
@@ -32,23 +29,16 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
 }
 
-kotlinDslPluginOptions {
-    experimentalWarning.set(false)
-}
-
-pluginBundle {
+gradlePlugin {
     website = "https://github.com/toolebox-io/gradle-git-versioner"
     vcsUrl = "https://github.com/tooleboxio/gradle-git-versioner"
-    tags = listOf("git", "version", "semantic-version")
-}
-
-gradlePlugin {
     plugins {
         create("versionerPlugin") {
             id = "io.toolebox.git-versioner"
             displayName = "Git Versioner Plugin"
             description = "Automatically version a project based on commit messages and semantic versioning principles"
             implementationClass = "io.toolebox.gradle.gitversioner.VersionerPlugin"
+            tags = listOf("git", "version", "semantic-version")
         }
     }
     testSourceSets(sourceSets["functionalTest"])
@@ -86,6 +76,12 @@ versioner {
     }
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(8)
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
@@ -98,7 +94,7 @@ tasks.withType<Test> {
 tasks.jacocoTestReport {
     executionData(fileTree(projectDir).include("build/jacoco/*.exec"))
     reports {
-        xml.isEnabled = true
+        xml.required = true
     }
 }
 
@@ -123,16 +119,14 @@ sonarqube {
 
 fun setUpExtraTests(type: String) {
     sourceSets.register("${type}Test") {
-        compileClasspath += sourceSets["main"].output + configurations["testRuntime"]
-        runtimeClasspath += sourceSets["main"].output
-        withConvention(KotlinSourceSet::class) {
-            kotlin.srcDir("src/${type}Test/kotlin")
-        }
+        compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
+        runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
     }
 
     configurations["${type}TestImplementation"].extendsFrom(configurations["testImplementation"])
 
     tasks.register("${type}Test", Test::class.java) {
+        doNotTrackState("jacoco")
         description = "Runs the $type tests"
         group = "verification"
         testClassesDirs = sourceSets["${type}Test"].output.classesDirs
