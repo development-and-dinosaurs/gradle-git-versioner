@@ -1,3 +1,3 @@
 plugins {
-    id("io.toolebox.git-versioner")
+    id("uk.co.developmentanddinosaurs.git-versioner")
 }

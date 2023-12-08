@@ -9,7 +9,7 @@ plugins {
     id("pl.droidsonroids.jacoco.testkit") version "1.0.12"
 }
 
-group = "io.toolebox"
+group = "uk.co.developmentanddinosaurs"
 
 setUpExtraTests("functional")
 setUpExtraTests("integration")
@@ -29,14 +29,14 @@ dependencies {
 }
 
 gradlePlugin {
-    website = "https://github.com/toolebox-io/gradle-git-versioner"
-    vcsUrl = "https://github.com/tooleboxio/gradle-git-versioner"
+    website = "https://github.com/developmentanddinosaurs/gradle-git-versioner"
+    vcsUrl = "https://github.com/developmentanddinosaurs/gradle-git-versioner"
     plugins {
         create("versionerPlugin") {
-            id = "io.toolebox.git-versioner"
+            id = "uk.co.developmentanddinosaurs.git-versioner"
             displayName = "Git Versioner Plugin"
             description = "Automatically version a project based on commit messages and semantic versioning principles"
-            implementationClass = "io.toolebox.gradle.gitversioner.VersionerPlugin"
+            implementationClass = "uk.co.developmentanddinosaurs.gradle.gitversioner.VersionerPlugin"
             tags = listOf("git", "version", "semantic-version")
         }
     }

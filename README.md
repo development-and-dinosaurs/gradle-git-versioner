@@ -1,10 +1,10 @@
 # Gradle Git Versioner
-[![Plugin Portal](https://img.shields.io/maven-metadata/v?label=plugin%20portal&style=for-the-badge&logo=gradle&metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fio%2Ftoolebox%2Fgit-versioner%2Fio.toolebox.git-versioner.gradle.plugin%2Fmaven-metadata.xml)](https://plugins.gradle.org/plugin/io.toolebox.git-versioner)
-[![Release Date](https://img.shields.io/github/release-date/toolebox-io/gradle-git-versioner?logo=gradle&style=for-the-badge)](https://plugins.gradle.org/plugin/io.toolebox.git-versioner)  
-[![Build Status](https://img.shields.io/github/workflow/status/toolebox-io/gradle-git-versioner/Build/master?style=for-the-badge&logo=github)](https://github.com/toolebox-io/gradle-git-versioner/actions?query=workflow%3ABuild)
-[![Sonar Tech Debt](https://img.shields.io/sonar/tech_debt/toolebox-io_gradle-git-versioner?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge)](https://sonarcloud.io/dashboard?id=toolebox-io_gradle-git-versioner)
-[![Sonar Coverage](https://img.shields.io/sonar/coverage/toolebox-io_gradle-git-versioner?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge)](https://sonarcloud.io/dashboard?id=toolebox-io_gradle-git-versioner)  
-[![MIT License](https://img.shields.io/github/license/toolebox-io/gradle-git-versioner?style=for-the-badge&logo=pagekit)](https://github.com/toolebox-io/gradle-git-versioner/blob/master/LICENSE)  
+[![Plugin Portal](https://img.shields.io/maven-metadata/v?label=plugin%20portal&style=for-the-badge&logo=gradle&metadataUrl=https%3A%2F%2Fplugins.gradle.org%2Fm2%2Fio%2Ftoolebox%2Fgit-versioner%2Fuk.co.developmentanddinosaurs.git-versioner.gradle.plugin%2Fmaven-metadata.xml)](https://plugins.gradle.org/plugin/uk.co.developmentanddinosaurs.git-versioner)
+[![Release Date](https://img.shields.io/github/release-date/development-and-dinosaurs/gradle-git-versioner?logo=gradle&style=for-the-badge)](https://plugins.gradle.org/plugin/uk.co.development-and-dinosaurs.git-versioner)  
+[![Build Status](https://img.shields.io/github/workflow/status/development-and-dinosaurs/gradle-git-versioner/Build/master?style=for-the-badge&logo=github)](https://github.com/development-and-dinosaurs/gradle-git-versioner/actions?query=workflow%3ABuild)
+[![Sonar Tech Debt](https://img.shields.io/sonar/tech_debt/development-and-dinosaurs_gradle-git-versioner?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge)](https://sonarcloud.io/dashboard?id=development-and-dinosaurs_gradle-git-versioner)
+[![Sonar Coverage](https://img.shields.io/sonar/coverage/development-and-dinosaurs_gradle-git-versioner?logo=sonarcloud&server=https%3A%2F%2Fsonarcloud.io&style=for-the-badge)](https://sonarcloud.io/dashboard?id=development-and-dinosaurs_gradle-git-versioner)  
+[![MIT License](https://img.shields.io/github/license/development-and-dinosaurs/gradle-git-versioner?style=for-the-badge&logo=pagekit)](https://github.com/development-and-dinosaurs/gradle-git-versioner/blob/master/LICENSE)  
 
 ## What is Git Versioner?
 Git Versioner is the coolest way to automatically increase your version numbers.
@@ -21,7 +21,7 @@ It's customisable too- you can decide what to look for to decide whether somethi
 ## How do I migrate to using Git Versioner?
 That's really simple too. 
 
-1. Find us on the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/io.toolebox.git-versioner).
+1. Find us on the [Gradle Plugin Portal](https://plugins.gradle.org/plugin/uk.co.developmentanddinosaurs.git-versioner).
 
 2. Apply the plugin using your preferred syntax.
 
