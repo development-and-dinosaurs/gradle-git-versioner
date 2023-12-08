@@ -16,7 +16,7 @@ jobs:
           distribution: temurin
           java-version: 11
       - name: Build
-        run: ./gradlew build sonarqube
+        run: ./gradlew build
         env:
           SONAR_LOGIN: ${{ secrets.SONAR_LOGIN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

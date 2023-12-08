@@ -6,7 +6,6 @@ plugins {
     id("com.diffplug.spotless") version "6.23.3"
     id("com.gradle.plugin-publish") version "1.2.1"
     id("io.toolebox.git-versioner") version "1.6.7"
-    id("org.sonarqube") version "3.0"
     id("pl.droidsonroids.jacoco.testkit") version "1.0.12"
 }
 
@@ -101,21 +100,6 @@ tasks.jacocoTestReport {
 
 jacocoTestKit {
     applyTo("functionalTestRuntimeOnly", tasks.named("functionalTest"))
-}
-
-sonarqube {
-    properties {
-        property("sonar.projectKey", "toolebox-io_gradle-git-versioner")
-        property("sonar.organization", "toolebox-io")
-        property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.login", System.getenv("SONAR_LOGIN"))
-        property("sonar.sources", "src/main/kotlin")
-        property("sonar.tests", "src/test/kotlin,src/integrationTest/kotlin,src/functionalTest/kotlin")
-        property("sonar.junit.reportPaths", "build/test-results/**/*.xml")
-        property("sonar.jacoco.reportPaths", "build/jacoco/*.exec")
-        property("sonar.coverage.jacoco.xmlReportPaths", "build/reports/jacoco/test/jacocoTestReport.xml")
-        property("sonar.cpd.exclusions", "src/test/**/*,src/integrationTest/**/*,src/functionalTest/**/*")
-    }
 }
 
 fun setUpExtraTests(type: String) {
