@@ -102,20 +102,26 @@ jacocoTestKit {
     applyTo("functionalTestRuntimeOnly", tasks.named("functionalTest"))
 }
 
+/**
+ * Sets up an extra test source set, configuration, and task to run the tests.
+ *
+ * Can be used to easily set up a new type of test to run - for example, integration, and functional tests.
+ */
 fun setUpExtraTests(type: String) {
-    sourceSets.register("${type}Test") {
+    val test = "${type}Test"
+    sourceSets.register(test) {
         compileClasspath += sourceSets.main.get().output + sourceSets.test.get().output
         runtimeClasspath += sourceSets.main.get().output + sourceSets.test.get().output
     }
 
-    configurations["${type}TestImplementation"].extendsFrom(configurations["testImplementation"])
+    configurations["${test}Implementation"].extendsFrom(configurations["testImplementation"])
 
-    tasks.register("${type}Test", Test::class.java) {
+    tasks.register(test, Test::class.java) {
         doNotTrackState("jacoco")
         description = "Runs the $type tests"
         group = "verification"
-        testClassesDirs = sourceSets["${type}Test"].output.classesDirs
-        classpath = sourceSets["${type}Test"].runtimeClasspath
+        testClassesDirs = sourceSets[test].output.classesDirs
+        classpath = sourceSets[test].runtimeClasspath
         dependsOn("test")
         tasks["check"].dependsOn(this)
     }
