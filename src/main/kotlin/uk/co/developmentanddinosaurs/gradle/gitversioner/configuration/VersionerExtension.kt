@@ -14,15 +14,15 @@ open class VersionerExtension
     ) {
         var calculatedVersion: String? = null
 
-        var startFrom = StartFrom(Action { })
+        var startFrom = StartFrom { }
 
-        var match = Match(Action { })
+        var match = Match { }
 
-        var tag = Tag(Action { })
+        var tag = Tag { }
 
-        var git = Git(Action { })
+        var git = Git { }
 
-        var pattern = Pattern(Action { })
+        var pattern = Pattern { }
 
         fun startFrom(action: Action<StartFrom>) {
             startFrom = StartFrom(action)
@@ -47,9 +47,8 @@ open class VersionerExtension
         fun apply() {
             val config = VersionerExtensionConfig(this)
             val version = versioner.version(config)
-            calculatedVersion =
-                version.print(config.pattern).also {
-                    project.version = it
-                }
+            val versionString = version.print(config.pattern)
+            calculatedVersion = versionString
+            project.version = versionString
         }
     }
