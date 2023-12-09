@@ -1,9 +1,9 @@
 package uk.co.developmentanddinosaurs.gradle.gitversioner.configuration
 
-import uk.co.developmentanddinosaurs.gradle.gitversioner.configuration.git.Git
-import uk.co.developmentanddinosaurs.gradle.gitversioner.core.version.Versioner
 import org.gradle.api.Action
 import org.gradle.api.Project
+import uk.co.developmentanddinosaurs.gradle.gitversioner.configuration.git.Git
+import uk.co.developmentanddinosaurs.gradle.gitversioner.core.version.Versioner
 import javax.inject.Inject
 
 open class VersionerExtension

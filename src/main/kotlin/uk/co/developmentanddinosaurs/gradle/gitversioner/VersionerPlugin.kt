@@ -1,5 +1,9 @@
 package uk.co.developmentanddinosaurs.gradle.gitversioner
 
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.kotlin.dsl.create
+import org.gradle.kotlin.dsl.register
 import uk.co.developmentanddinosaurs.gradle.gitversioner.configuration.TaggerExtensionConfig
 import uk.co.developmentanddinosaurs.gradle.gitversioner.configuration.VersionerExtension
 import uk.co.developmentanddinosaurs.gradle.gitversioner.configuration.VersionerExtensionConfig
@@ -7,10 +11,6 @@ import uk.co.developmentanddinosaurs.gradle.gitversioner.core.tag.GitTagger
 import uk.co.developmentanddinosaurs.gradle.gitversioner.core.version.Versioner
 import uk.co.developmentanddinosaurs.gradle.gitversioner.tasks.PrintVersionTask
 import uk.co.developmentanddinosaurs.gradle.gitversioner.tasks.TagVersionTask
-import org.gradle.api.Plugin
-import org.gradle.api.Project
-import org.gradle.kotlin.dsl.create
-import org.gradle.kotlin.dsl.register
 import java.io.File
 
 class VersionerPlugin : Plugin<Project> {

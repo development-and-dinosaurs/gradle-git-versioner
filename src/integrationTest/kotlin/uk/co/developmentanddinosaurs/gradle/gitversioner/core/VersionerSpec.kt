@@ -4,9 +4,9 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.test.TestCase
 import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
+import org.eclipse.jgit.api.Git
 import uk.co.developmentanddinosaurs.gradle.gitversioner.core.version.Versioner
 import uk.co.developmentanddinosaurs.gradle.gitversioner.core.version.VersionerConfig
-import org.eclipse.jgit.api.Git
 import java.io.File
 
 class VersionerSpec : StringSpec() {

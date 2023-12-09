@@ -4,11 +4,11 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.test.TestCase
 import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
-import uk.co.developmentanddinosaurs.gradle.gitversioner.util.Gradle
-import uk.co.developmentanddinosaurs.gradle.gitversioner.util.Project
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.RevWalk
 import org.eclipse.jgit.transport.URIish
+import uk.co.developmentanddinosaurs.gradle.gitversioner.util.Gradle
+import uk.co.developmentanddinosaurs.gradle.gitversioner.util.Project
 import java.io.File
 
 class TagVersionTaskSpec : StringSpec() {
