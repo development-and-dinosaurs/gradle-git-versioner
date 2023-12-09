@@ -26,6 +26,7 @@ dependencies {
     val kotestVersion = "5.8.0"
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.mockk:mockk:1.13.7")
 }
 
 gradlePlugin {

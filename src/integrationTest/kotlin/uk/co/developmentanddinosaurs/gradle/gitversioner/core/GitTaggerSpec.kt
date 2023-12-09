@@ -88,5 +88,4 @@ class GitTaggerSpec : StringSpec({
 
         lastTag(localGit).fullMessage shouldBe "Commit\nCommit"
     }
-
 })

@@ -8,11 +8,11 @@ import java.io.File
 
 class PrintVersionTaskSpec : StringSpec({
 
-     val directory = File("build/tmp/functionalTest/PrintVersionTaskSpec")
-     val project = Project.createProject(directory)
-     val gradle = Gradle(directory)
-    
-     fun addCommits(project: Project) {
+    val directory = File("build/tmp/functionalTest/PrintVersionTaskSpec")
+    val project = Project.createProject(directory)
+    val gradle = Gradle(directory)
+
+    fun addCommits(project: Project) {
         project
             .withCommit("trex")
             .withCommit("stego")
@@ -22,7 +22,7 @@ class PrintVersionTaskSpec : StringSpec({
             .withCommit("[patch]")
             .withCommit("message")
     }
-    
+
     afterTest {
         directory.deleteRecursively()
     }

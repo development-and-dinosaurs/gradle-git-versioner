@@ -20,7 +20,6 @@ class TagVersionTaskSpec : StringSpec({
 
     fun lastTag(git: Git) = RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
 
-
     fun createRepository(folder: File): Git {
         return Git.init().setDirectory(folder).call()
     }
@@ -80,6 +79,4 @@ class TagVersionTaskSpec : StringSpec({
         lastTag(localGit).tagName shouldBe "x1.1.1-1"
         lastTag(remoteGit).tagName shouldBe "x1.1.1-1"
     }
-
-
 })
