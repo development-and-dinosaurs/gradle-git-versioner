@@ -6,7 +6,15 @@ import org.eclipse.jgit.transport.CredentialsProvider
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider
 import java.io.File
 
+/**
+ * Creates and pushes git tags based on the tagging config provider.
+ */
 class GitTagger(private val gitFolder: File, private val config: TaggerConfig) {
+    /**
+     * Creates a git tag and pushes it to the remote repository.
+     *
+     * @param version the version to tag
+     */
     fun tag(version: String) {
         configureHostChecking(config)
         val credentialsProvider = createCredentialsProvider(config)

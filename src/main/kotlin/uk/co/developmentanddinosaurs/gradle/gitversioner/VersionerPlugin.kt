@@ -13,7 +13,15 @@ import uk.co.developmentanddinosaurs.gradle.gitversioner.tasks.PrintVersionTask
 import uk.co.developmentanddinosaurs.gradle.gitversioner.tasks.TagVersionTask
 import java.io.File
 
+/**
+ * A custom Gradle plugin that adds tasks related to semantic versioning via Git.
+ */
 class VersionerPlugin : Plugin<Project> {
+    /**
+     * Apply the plugin to the project.
+     *
+     * @param project the project to apply the plugin to
+     */
     override fun apply(project: Project) {
         val gitFolder = File("${project.rootDir}/.git")
         val versioner = Versioner(gitFolder)
@@ -27,8 +35,9 @@ class VersionerPlugin : Plugin<Project> {
                 val version = versioner.version(config).print(config.pattern)
                 project.version = version
             }
-            printVersionTask.get().version = project.version.toString()
-            tagVersionTask.get().version = project.version.toString()
+            val projectVersion = project.version.toString()
+            printVersionTask.get().version = projectVersion
+            tagVersionTask.get().version = projectVersion
         }
     }
 }

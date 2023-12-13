@@ -2,6 +2,9 @@ package uk.co.developmentanddinosaurs.gradle.gitversioner.configuration
 
 import uk.co.developmentanddinosaurs.gradle.gitversioner.core.version.VersionerConfig
 
+/**
+ * Implementation of [VersionerConfig] that uses a Gradle specific [VersionerExtension] to collect the configuration.
+ */
 class VersionerExtensionConfig(extension: VersionerExtension) : VersionerConfig {
     override val startFromMajor by lazy { extension.startFrom.major }
     override val startFromMinor by lazy { extension.startFrom.minor }
