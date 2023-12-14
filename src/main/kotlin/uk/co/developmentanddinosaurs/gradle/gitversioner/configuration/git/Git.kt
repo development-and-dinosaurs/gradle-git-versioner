@@ -3,7 +3,13 @@ package uk.co.developmentanddinosaurs.gradle.gitversioner.configuration.git
 import groovy.lang.Closure
 import org.gradle.api.Action
 
+/**
+ * Configuration to specify the Git behaviour.
+ */
 class Git(action: Action<Git>) {
+    /**
+     * The authentication configuration to use for Git.
+     */
     var authentication =
         Authentication(Action { })
 

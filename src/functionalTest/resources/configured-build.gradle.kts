@@ -20,11 +20,3 @@ versioner {
         pattern = "%M.%m.%p(-%c)"
     }
 }
-
-tasks.create("printVersionEarly") {
-    versioner.apply()
-    val version = project.version
-    doLast {
-        println(version)
-    }
-}

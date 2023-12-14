@@ -1,8 +1,6 @@
 package uk.co.developmentanddinosaurs.gradle.gitversioner.core
 
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.test.TestCase
-import io.kotest.core.test.TestResult
 import io.kotest.matchers.shouldBe
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.revwalk.RevWalk
@@ -11,76 +9,28 @@ import uk.co.developmentanddinosaurs.gradle.gitversioner.core.tag.GitTagger
 import uk.co.developmentanddinosaurs.gradle.gitversioner.core.tag.TaggerConfig
 import java.io.File
 
-class GitTaggerSpec : StringSpec() {
-    private val projectDir = File("build/tmp/integrationTest/local")
-    private val remoteDir = File("build/tmp/integrationTest/remote")
+class GitTaggerSpec : StringSpec({
 
-    private lateinit var localGit: Git
-    private lateinit var remoteGit: Git
+    val projectDir = File("build/tmp/integrationTest/local")
+    val remoteDir = File("build/tmp/integrationTest/remote")
 
-    override fun beforeTest(testCase: TestCase) {
-        localGit = createRepository(projectDir)
-        remoteGit = createRepository(remoteDir)
-        addCommitToLocalRepository(localGit)
-        addRemoteAsLocalOrigin(localGit)
-        super.beforeTest(testCase)
-    }
+    lateinit var localGit: Git
+    lateinit var remoteGit: Git
 
-    override fun afterTest(
-        testCase: TestCase,
-        result: TestResult,
-    ) {
-        projectDir.deleteRecursively()
-        remoteDir.deleteRecursively()
-        super.afterTest(testCase, result)
-    }
-
-    private fun addCommitToLocalRepository(git: Git) {
+    fun addCommitToLocalRepository(git: Git) {
         git.commit().setSign(false).setAllowEmpty(true).setMessage("Commit\nCommit").call()
     }
 
-    private fun addRemoteAsLocalOrigin(git: Git) {
+    fun addRemoteAsLocalOrigin(git: Git) {
         git.remoteAdd().setName("origin").setUri(URIish(remoteDir.absolutePath)).call()
     }
 
-    private fun createRepository(folder: File): Git {
+    fun createRepository(folder: File): Git {
         Git.init().setDirectory(folder).call()
         return Git.open(File(folder.absolutePath + "/.git"))
     }
 
-    init {
-        "Creates tag locally and pushes to remote repository" {
-            val tagger = createTagger()
-
-            tagger.tag("1.0.0")
-
-            lastTag(localGit).tagName shouldBe "v1.0.0"
-            lastTag(remoteGit).tagName shouldBe "v1.0.0"
-        }
-        "Creates overridden tag locally and pushes to remote repository" {
-            val tagger = createTagger(prefix = "x")
-
-            tagger.tag("1.0.0")
-
-            lastTag(localGit).tagName shouldBe "x1.0.0"
-        }
-        "Creates tag with no message when not specified" {
-            val tagger = createTagger()
-
-            tagger.tag("1.0.0")
-
-            lastTag(localGit).fullMessage shouldBe ""
-        }
-        "Creates tag with message as last commit message" {
-            val tagger = createTagger(useCommitMessage = true)
-
-            tagger.tag("1.0.0")
-
-            lastTag(localGit).fullMessage shouldBe "Commit\nCommit"
-        }
-    }
-
-    private fun createTagger(
+    fun createTagger(
         prefix: String = "v",
         useCommitMessage: Boolean = false,
     ) = GitTagger(
@@ -95,5 +45,47 @@ class GitTaggerSpec : StringSpec() {
         },
     )
 
-    private fun lastTag(git: Git) = RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
-}
+    fun lastTag(git: Git) = RevWalk(git.repository).parseTag(git.tagList().call()[0].objectId)
+
+    beforeTest {
+        localGit = createRepository(projectDir)
+        remoteGit = createRepository(remoteDir)
+        addCommitToLocalRepository(localGit)
+        addRemoteAsLocalOrigin(localGit)
+    }
+
+    afterTest {
+        projectDir.deleteRecursively()
+        remoteDir.deleteRecursively()
+    }
+
+    "Creates tag locally and pushes to remote repository" {
+        val tagger = createTagger()
+
+        tagger.tag("1.0.0")
+
+        lastTag(localGit).tagName shouldBe "v1.0.0"
+        lastTag(remoteGit).tagName shouldBe "v1.0.0"
+    }
+    "Creates overridden tag locally and pushes to remote repository" {
+        val tagger = createTagger(prefix = "x")
+
+        tagger.tag("1.0.0")
+
+        lastTag(localGit).tagName shouldBe "x1.0.0"
+    }
+    "Creates tag with no message when not specified" {
+        val tagger = createTagger()
+
+        tagger.tag("1.0.0")
+
+        lastTag(localGit).fullMessage shouldBe ""
+    }
+    "Creates tag with message as last commit message" {
+        val tagger = createTagger(useCommitMessage = true)
+
+        tagger.tag("1.0.0")
+
+        lastTag(localGit).fullMessage shouldBe "Commit\nCommit"
+    }
+})

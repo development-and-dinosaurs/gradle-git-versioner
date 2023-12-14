@@ -3,7 +3,16 @@ package uk.co.developmentanddinosaurs.gradle.gitversioner.core.version
 import org.eclipse.jgit.api.Git
 import java.io.File
 
+/**
+ * Calculates the full version of a project based on the git history provided.
+ */
 class Versioner(private val gitFolder: File) {
+    /**
+     * Calculate the version for the provided configuration.
+     *
+     * @param config the [VersionerConfig] to use for calculating the version
+     * @return the [Version] calculated using the configuration and history
+     */
     fun version(config: VersionerConfig): Version {
         var major = config.startFromMajor
         var minor = config.startFromMinor
@@ -36,7 +45,6 @@ class Versioner(private val gitFolder: File) {
                 else -> commit++
             }
         }
-
         return Version(major, minor, patch, commit, branch, hash)
     }
 }

@@ -1,5 +1,8 @@
 package uk.co.developmentanddinosaurs.gradle.gitversioner.core.version
 
+/**
+ * A calculated version based on the provided version details.
+ */
 data class Version(
     val major: Int,
     val minor: Int,
@@ -8,6 +11,12 @@ data class Version(
     val branch: String,
     val hash: String,
 ) {
+    /**
+     * Print the version based on the provided pattern.
+     *
+     * @param pattern The pattern to use to print the version.
+     * @return The version string.
+     */
     fun print(pattern: String): String {
         val filledVersion =
             pattern
