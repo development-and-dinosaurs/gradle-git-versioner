@@ -1,6 +1,6 @@
 # Gradle Git Versioner
 
-[![MIT License](https://img.shields.io/github/license/development-and-dinosaurs/gradle-git-versioner?style=for-the-badge&logo=pagekit)](https://github.com/development-and-dinosaurs/gradle-git-versioner/blob/master/LICENSE)
+[![MIT License](https://img.shields.io/github/license/development-and-dinosaurs/gradle-git-versioner?style=for-the-badge&logo=pagekit)](https://github.com/development-and-dinosaurs/gradle-git-versioner/blob/main/LICENSE)
 
 ## What is Git Versioner?
 
@@ -39,13 +39,13 @@ This one comes down to personal preference, but the way I like to version is as 
 
 2. Make atomic commits for each of the changes I'm doing with useful commit messages.
 
-3. Raise a pull request for that feature back into master branch.
+3. Raise a pull request for that feature back into the main branch.
 
 4. Merge the pull request in using a merge commit, adding the version tag to the commit message.
 
-5. Publish from master branch.
+5. Publish from the main branch.
 
-This ensures that you keep a nice commit history and end up with the correct version on master branch.
+This ensures that you keep a nice commit history and end up with the correct version on the main branch.
 
 ## How do I use it?
 
@@ -163,7 +163,7 @@ works:
 | 1.2.3.0 | %M.%m.%p(-SNAPSHOT) | 1.2.3            |
 | 1.2.3.4 | %M.%m.%p-%H         | 1.2.3-hash123456 |
 | 1.2.3.4 | %M.%m.%p-%h         | 1.2.3-hash123    |
-| 1.2.3.4 | %M.%m.%p-%b         | 1.2.3-master     |
+| 1.2.3.4 | %M.%m.%p-%b         | 1.2.3-main       |
 
 Pattern calculation uses really simple string substitution and regular expressions, so there's nothing fancy like
 pattern escaping or things like that.

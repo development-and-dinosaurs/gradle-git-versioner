@@ -13,13 +13,13 @@ main repository in a quicker timeframe than if the workflow isn't followed.
 
 2. Fork the repository.
 
-3. Make your changes and submit a pull request from your fork into master branch.
+3. Make your changes and submit a pull request from your fork into the main branch.
 
 4. The pull request will run through GitHub Actions to ensure it compiles and tests pass.
 
 5. The pull request will be reviewed and comments made and changes requests where required.
 
-6. When ready, the pull request will be merged into master branch and automatically included in the next release.
+6. When ready, the pull request will be merged into the main branch and automatically included in the next release.
 
 ## Contribution Guidelines
 
