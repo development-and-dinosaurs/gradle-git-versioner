@@ -30,8 +30,8 @@ dependencies {
 }
 
 gradlePlugin {
-    website = "https://github.com/developmentanddinosaurs/gradle-git-versioner"
-    vcsUrl = "https://github.com/developmentanddinosaurs/gradle-git-versioner"
+    website = "https://github.com/development-and-dinosaurs/gradle-git-versioner"
+    vcsUrl = "https://github.com/development-and-dinosaurs/gradle-git-versioner"
     plugins {
         create("versionerPlugin") {
             id = "uk.co.developmentanddinosaurs.git-versioner"
